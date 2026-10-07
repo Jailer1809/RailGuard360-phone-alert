@@ -23,7 +23,7 @@ The project includes [`render.yaml`](./render.yaml) for a Render Blueprint deplo
 4. In the Render service's environment settings, set credentials for exactly one SMS provider (`FAST2SMS_API_KEY` or the Twilio variables). Without provider credentials the app remains in dry-run mode. Keep secrets only in Render's environment settings, not in Git.
 5. Install the APK and enter the assigned HTTPS service URL when prompted. The APK remembers the URL, and you can change it later from its address screen. No rebuild is needed to change the server URL.
 
-Test using non-emergency recipients before any supervised trial. A successful `/api/config` response verifies the server is reachable; it does not verify SMS delivery. Confirm delivery with the provider and recipient phones.
+The Blueprint requests Render's **Free** web-service plan. Free instances can spin down when idle, causing a long delay on the first request after inactivity; they are suitable for testing, not dependable emergency monitoring. Test using non-emergency recipients before any supervised trial. A successful `/api/config` response verifies the server is reachable; it does not verify SMS delivery. Confirm delivery with the provider and recipient phones.
 
 ### Android APK
 The Android project is in `android/`. The APK is a native WebView shell around the same web detector: install it, enter the deployed RailGuard HTTPS URL, then grant camera and location permission. Its server address can be changed later in the app. Keep the Python server and SMS gateway reachable; the APK does not include a server or offline SMS delivery. HTTPS is required for camera and location access. No hosted URL was provided, so configure one in the app before monitoring.
