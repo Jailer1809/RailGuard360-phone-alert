@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1118">
+<meta name="description" content="RailGuard 360 phone-based camera and GPS fall-alert prototype.">
+<link rel="manifest" href="/manifest.json">
+<title>RailGuard 360 - Phone Fall Alert</title>
+<style>
+:root{--bg:#0f1720;--card:#18232f;--tx:#e8eef4;--mut:#8aa0b2;--ok:#2ecc71;--warn:#f39c12;--bad:#e74c3c;--acc:#3aa0ff}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--tx)}
+header{padding:14px 20px;background:#0b1118;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+h1{font-size:20px;margin:0}header small{color:var(--mut)}
+main{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px;padding:14px}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:12px;padding:12px}
+.stage{position:relative;background:#000;border-radius:10px;overflow:hidden;aspect-ratio:4/3}
+video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+#banner{position:absolute;left:0;right:0;bottom:0;padding:12px;font-weight:700;text-align:center;display:none;z-index:3}
+.hud{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.stat{flex:1;min-width:120px;background:#101a24;border-radius:8px;padding:8px}
+.stat b{display:block;font-size:22px}.stat span{color:var(--mut);font-size:12px}
+button,select{min-height:44px}button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:9px 13px;font-size:14px;cursor:pointer;margin:3px}
+button.red{background:var(--bad)}button.gray{background:#3a4856}
+button:disabled{opacity:.55;cursor:not-allowed}
+#log{height:190px;overflow:auto;font:12px ui-monospace,Consolas,monospace;background:#0b1118;border-radius:8px;padding:8px}
+#log div{margin-bottom:3px}.e{color:var(--bad)}.w{color:var(--warn)}.o{color:var(--ok)}
+h3{margin:4px 0 8px;font-size:15px}svg{width:100%;background:#0b1118;border-radius:8px}
+.pill{padding:3px 9px;border-radius:99px;font-size:12px;font-weight:700}
+</style></head><body>
+<header><div><h1>RailGuard 360 &middot; Fall & Push Detection</h1><small>Installable phone web app &middot; camera + device GPS</small></div>
+<span id="armed" class="pill" style="background:#3a4856">GPS NOT STARTED</span></header>
+<main>
+<section class="card">
+  <div class="stage"><video id="v" playsinline muted></video><canvas id="c"></canvas><div id="banner"></div></div>
+  <small style="display:block;margin-top:8px;color:var(--mut)">Detection: human body poses only (up to 4 visible people). Non-human objects are ignored.</small>
+  <div class="hud">
+    <div class="stat"><b id="spd">--</b><span id="speedLabel">Phone GPS speed km/h</span></div>
+    <div class="stat"><b id="tilt">-</b><span>Body tilt (deg)</span></div>
+    <div class="stat"><b id="gps">Waiting for GPS</b><span>Coordinates & GPS accuracy</span></div>
+    <div class="stat"><b id="stnStatus">GPS stopped</b><span>Phone location status</span></div>
+  </div>
+  <div style="margin-top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px">
+    <button id="bCam">Start camera</button>
+    <select id="cameraSelect" aria-label="Camera device" style="background:#18232f;color:#e8eef4;border:1px solid #3aa0ff;padding:8px;border-radius:8px;font-size:13px;cursor:pointer"></select>
+    <button id="bGps" style="background:#2ecc71;font-weight:bold;">Start phone GPS</button>
+    <label for="modeSelect">Mode</label>
+    <select id="modeSelect" aria-label="Operating mode" style="background:#18232f;color:#e8eef4;border:1px solid #3aa0ff;padding:8px;border-radius:8px;font-size:13px;cursor:pointer">
+      <option value="phone" selected>Live phone GPS</option>
+      <option value="demo">Demo simulator</option>
+    </select>
+    <button id="bStartTrain" style="background:#2ecc71;font-weight:bold;" hidden>Start demo train</button>
+    <button class="gray" id="bUp">Speed +10</button><button class="gray" id="bDn">Speed -10</button>
+    <button class="red" id="bFake">Test alert</button><button class="gray" id="bRel">Reset demo</button>
+  </div>
+  <small id="modeHelp" style="color:var(--mut)">Live phone mode uses this phone's GPS coordinates and reported GPS speed. Start GPS and camera, and keep the camera aimed at the area to monitor. Alerts require GPS speed above <b id="lim">20</b> km/h. The app cannot stop a train.</small>
+  <p style="color:#ffb703;font-size:12px;margin:10px 2px 0">Prototype only: camera detection and phone GPS are not railway-certified, may miss incidents, and require the app to remain open. Configure and test emergency contacts before use.</p>
+</section>
+<aside style="display:flex;flex-direction:column;gap:14px">
+  <div class="card"><h3 id="mapTitle">Demo route</h3><svg id="map" viewBox="0 0 300 200"></svg></div>
+  <div class="card">
+    <h3>Alert recipients</h3>
+    <div id="nums" style="font-size:13px;color:var(--mut)">loading...</div>
+    <div id="sms" style="margin-top:6px;font-size:12px"></div>
+    <div style="margin-top:8px;font-size:11px;color:var(--mut);">
+      Alerts include GPS coordinates, a map link and reported accuracy when available. SMS delivery requires a configured server provider.
+    </div>
+    <a href="/receiver" style="display:inline-block;margin-top:10px;color:var(--acc)">Open recipient dashboard</a>
+  </div>
+  <div class="card"><h3>Event log</h3><div id="log"></div></div>
+</aside></main>
+
+<!-- Real-time Phone Popup Alert Modal -->
+<div id="phoneModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#18232f;border:2px solid #e74c3c;border-radius:16px;max-width:480px;width:100%;box-shadow:0 10px 30px rgba(231,76,60,0.5);overflow:hidden;animation:pop 0.3s ease-out">
+    <div style="background:#e74c3c;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+      <b style="font-size:16px;">🚨 ALERT DISPATCH STATUS</b>
+      <button id="closeModal" style="background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer;padding:0 4px;">&times;</button>
+    </div>
+    <div style="padding:16px;">
+      <p style="margin:0 0 10px;font-size:13px;color:var(--mut)">Check each recipient's result below; delivery is confirmed only when its status is SENT.</p>
+      <div id="modalAlertCards" style="display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto;"></div>
+    </div>
+    <div style="padding:10px 16px;background:#0b1118;display:flex;justify-content:flex-end;gap:8px;">
+      <button id="btnAcknowledge" style="background:#2ecc71;padding:8px 16px;">Acknowledge & Dismiss</button>
+    </div>
+  </div>
+</div>
+<script type="module" src="app.js"></script>
+</body></html>

@@ -1,0 +1,616 @@
+t,lat,lon,speed_kmph,prev_station,next_station,km
+0,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+1,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+2,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+3,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+4,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+5,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+6,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+7,11.0003,76.9663,0.0,Coimbatore Jn,Tiruppur,0.0
+8,11.00081,76.96806,12.0,Coimbatore Jn,Tiruppur,0.2
+9,11.00135,76.96993,12.8,Coimbatore Jn,Tiruppur,0.4
+10,11.00193,76.97193,13.7,Coimbatore Jn,Tiruppur,0.6
+11,11.00254,76.97407,14.6,Coimbatore Jn,Tiruppur,0.9
+12,11.0032,76.97634,15.5,Coimbatore Jn,Tiruppur,1.1
+13,11.0039,76.97877,16.6,Coimbatore Jn,Tiruppur,1.4
+14,11.00465,76.98136,17.7,Coimbatore Jn,Tiruppur,1.7
+15,11.00545,76.98412,18.9,Coimbatore Jn,Tiruppur,2.0
+16,11.0063,76.98707,20.1,Coimbatore Jn,Tiruppur,2.4
+17,11.0072,76.99021,21.5,Coimbatore Jn,Tiruppur,2.7
+18,11.00817,76.99356,22.9,Coimbatore Jn,Tiruppur,3.1
+19,11.0092,76.99714,24.4,Coimbatore Jn,Tiruppur,3.5
+20,11.0103,77.00095,26.0,Coimbatore Jn,Tiruppur,3.9
+21,11.01148,77.00502,27.8,Coimbatore Jn,Tiruppur,4.4
+22,11.01273,77.00936,29.6,Coimbatore Jn,Tiruppur,4.9
+23,11.01407,77.01399,31.6,Coimbatore Jn,Tiruppur,5.4
+24,11.01549,77.01893,33.7,Coimbatore Jn,Tiruppur,6.0
+25,11.01701,77.0242,35.9,Coimbatore Jn,Tiruppur,6.6
+26,11.01864,77.02981,38.3,Coimbatore Jn,Tiruppur,7.2
+27,11.02037,77.03581,40.9,Coimbatore Jn,Tiruppur,7.9
+28,11.02221,77.0422,43.6,Coimbatore Jn,Tiruppur,8.6
+29,11.02418,77.04902,46.5,Coimbatore Jn,Tiruppur,9.4
+30,11.02628,77.05629,49.6,Coimbatore Jn,Tiruppur,10.2
+31,11.02852,77.06405,52.9,Coimbatore Jn,Tiruppur,11.1
+32,11.03091,77.07232,56.5,Coimbatore Jn,Tiruppur,12.1
+33,11.03346,77.08115,60.2,Coimbatore Jn,Tiruppur,13.1
+34,11.03617,77.09056,64.3,Coimbatore Jn,Tiruppur,14.1
+35,11.03907,77.10061,68.5,Coimbatore Jn,Tiruppur,15.3
+36,11.04216,77.11132,73.1,Coimbatore Jn,Tiruppur,16.5
+37,11.04546,77.12274,78.0,Coimbatore Jn,Tiruppur,17.8
+38,11.04898,77.13493,83.2,Coimbatore Jn,Tiruppur,19.2
+39,11.05273,77.14793,88.7,Coimbatore Jn,Tiruppur,20.7
+40,11.05654,77.16112,90.0,Coimbatore Jn,Tiruppur,22.2
+41,11.06035,77.1743,90.0,Coimbatore Jn,Tiruppur,23.7
+42,11.06407,77.18718,87.9,Coimbatore Jn,Tiruppur,25.1
+43,11.06754,77.1992,82.0,Coimbatore Jn,Tiruppur,26.5
+44,11.07077,77.21042,76.6,Coimbatore Jn,Tiruppur,27.8
+45,11.0738,77.22089,71.5,Coimbatore Jn,Tiruppur,29.0
+46,11.07662,77.23066,66.7,Coimbatore Jn,Tiruppur,30.1
+47,11.07925,77.23978,62.3,Coimbatore Jn,Tiruppur,31.1
+48,11.08171,77.24829,58.1,Coimbatore Jn,Tiruppur,32.1
+49,11.084,77.25624,54.2,Coimbatore Jn,Tiruppur,33.0
+50,11.08614,77.26366,50.6,Coimbatore Jn,Tiruppur,33.8
+51,11.08814,77.27058,47.2,Coimbatore Jn,Tiruppur,34.6
+52,11.09001,77.27704,44.1,Coimbatore Jn,Tiruppur,35.3
+53,11.09175,77.28307,41.2,Coimbatore Jn,Tiruppur,36.0
+54,11.09337,77.28869,38.4,Coimbatore Jn,Tiruppur,36.7
+55,11.09489,77.29394,35.8,Coimbatore Jn,Tiruppur,37.3
+56,11.0963,77.29885,33.5,Coimbatore Jn,Tiruppur,37.8
+57,11.09762,77.30342,31.2,Coimbatore Jn,Tiruppur,38.3
+58,11.09886,77.30769,29.1,Coimbatore Jn,Tiruppur,38.8
+59,11.10001,77.31168,27.2,Coimbatore Jn,Tiruppur,39.3
+60,11.10108,77.3154,25.4,Coimbatore Jn,Tiruppur,39.7
+61,11.10208,77.31887,23.7,Coimbatore Jn,Tiruppur,40.1
+62,11.10302,77.32211,22.1,Coimbatore Jn,Tiruppur,40.5
+63,11.10389,77.32513,20.6,Coimbatore Jn,Tiruppur,40.8
+64,11.10471,77.32796,19.3,Coimbatore Jn,Tiruppur,41.1
+65,11.10547,77.33059,18.0,Coimbatore Jn,Tiruppur,41.4
+66,11.10618,77.33305,16.8,Coimbatore Jn,Tiruppur,41.7
+67,11.10684,77.33534,15.7,Coimbatore Jn,Tiruppur,42.0
+68,11.10746,77.33749,14.6,Coimbatore Jn,Tiruppur,42.2
+69,11.10803,77.33948,13.6,Coimbatore Jn,Tiruppur,42.5
+70,11.1085,77.3411,12.7,Coimbatore Jn,Tiruppur,42.7
+71,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+72,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+73,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+74,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+75,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+76,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+77,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+78,11.1085,77.3411,0.0,Tiruppur,Erode Jn,42.63535
+79,11.10946,77.34265,12.0,Tiruppur,Erode Jn,42.8
+80,11.11048,77.34431,12.8,Tiruppur,Erode Jn,43.0
+81,11.11157,77.34607,13.7,Tiruppur,Erode Jn,43.3
+82,11.11274,77.34795,14.6,Tiruppur,Erode Jn,43.5
+83,11.11398,77.34996,15.5,Tiruppur,Erode Jn,43.8
+84,11.1153,77.3521,16.6,Tiruppur,Erode Jn,44.1
+85,11.11672,77.35439,17.7,Tiruppur,Erode Jn,44.3
+86,11.11822,77.35683,18.9,Tiruppur,Erode Jn,44.7
+87,11.11983,77.35943,20.1,Tiruppur,Erode Jn,45.0
+88,11.12154,77.3622,21.5,Tiruppur,Erode Jn,45.4
+89,11.12337,77.36516,22.9,Tiruppur,Erode Jn,45.7
+90,11.12532,77.36831,24.4,Tiruppur,Erode Jn,46.1
+91,11.1274,77.37168,26.0,Tiruppur,Erode Jn,46.6
+92,11.12962,77.37527,27.8,Tiruppur,Erode Jn,47.0
+93,11.13199,77.3791,29.6,Tiruppur,Erode Jn,47.5
+94,11.13451,77.38318,31.6,Tiruppur,Erode Jn,48.1
+95,11.13721,77.38754,33.7,Tiruppur,Erode Jn,48.6
+96,11.14008,77.39219,35.9,Tiruppur,Erode Jn,49.2
+97,11.14314,77.39714,38.3,Tiruppur,Erode Jn,49.9
+98,11.14641,77.40243,40.9,Tiruppur,Erode Jn,50.5
+99,11.1499,77.40807,43.6,Tiruppur,Erode Jn,51.3
+100,11.15362,77.41409,46.5,Tiruppur,Erode Jn,52.0
+101,11.15759,77.4205,49.6,Tiruppur,Erode Jn,52.9
+102,11.16182,77.42735,52.9,Tiruppur,Erode Jn,53.8
+103,11.16633,77.43465,56.5,Tiruppur,Erode Jn,54.7
+104,11.17115,77.44244,60.2,Tiruppur,Erode Jn,55.7
+105,11.17628,77.45074,64.3,Tiruppur,Erode Jn,56.8
+106,11.18176,77.4596,68.5,Tiruppur,Erode Jn,57.9
+107,11.1876,77.46906,73.1,Tiruppur,Erode Jn,59.1
+108,11.19383,77.47914,78.0,Tiruppur,Erode Jn,60.4
+109,11.20048,77.48989,83.2,Tiruppur,Erode Jn,61.8
+110,11.20757,77.50136,88.7,Tiruppur,Erode Jn,63.3
+111,11.21476,77.513,90.0,Tiruppur,Erode Jn,64.8
+112,11.22196,77.52463,90.0,Tiruppur,Erode Jn,66.3
+113,11.22915,77.53627,90.0,Tiruppur,Erode Jn,67.8
+114,11.23634,77.5479,90.0,Tiruppur,Erode Jn,69.3
+115,11.24354,77.55954,90.0,Tiruppur,Erode Jn,70.8
+116,11.25073,77.57117,90.0,Tiruppur,Erode Jn,72.3
+117,11.2577,77.58246,87.3,Tiruppur,Erode Jn,73.8
+118,11.26422,77.59299,81.5,Tiruppur,Erode Jn,75.1
+119,11.27029,77.60282,76.1,Tiruppur,Erode Jn,76.4
+120,11.27597,77.612,71.0,Tiruppur,Erode Jn,77.6
+121,11.28126,77.62057,66.2,Tiruppur,Erode Jn,78.7
+122,11.2862,77.62856,61.8,Tiruppur,Erode Jn,79.7
+123,11.29082,77.63602,57.7,Tiruppur,Erode Jn,80.7
+124,11.29512,77.64298,53.9,Tiruppur,Erode Jn,81.6
+125,11.29914,77.64948,50.3,Tiruppur,Erode Jn,82.4
+126,11.30289,77.65555,46.9,Tiruppur,Erode Jn,83.2
+127,11.30639,77.66121,43.8,Tiruppur,Erode Jn,83.9
+128,11.30965,77.66649,40.9,Tiruppur,Erode Jn,84.6
+129,11.3127,77.67143,38.1,Tiruppur,Erode Jn,85.2
+130,11.31555,77.67603,35.6,Tiruppur,Erode Jn,85.8
+131,11.3182,77.68032,33.2,Tiruppur,Erode Jn,86.4
+132,11.32068,77.68433,31.0,Tiruppur,Erode Jn,86.9
+133,11.323,77.68808,28.9,Tiruppur,Erode Jn,87.4
+134,11.32516,77.69157,27.0,Tiruppur,Erode Jn,87.8
+135,11.32717,77.69483,25.2,Tiruppur,Erode Jn,88.2
+136,11.32905,77.69787,23.5,Tiruppur,Erode Jn,88.6
+137,11.33081,77.70071,22.0,Tiruppur,Erode Jn,89.0
+138,11.33245,77.70336,20.5,Tiruppur,Erode Jn,89.3
+139,11.33398,77.70584,19.1,Tiruppur,Erode Jn,89.7
+140,11.3354,77.70815,17.9,Tiruppur,Erode Jn,90.0
+141,11.33673,77.7103,16.7,Tiruppur,Erode Jn,90.2
+142,11.33798,77.71231,15.6,Tiruppur,Erode Jn,90.5
+143,11.33914,77.71419,14.5,Tiruppur,Erode Jn,90.7
+144,11.34022,77.71594,13.6,Tiruppur,Erode Jn,91.0
+145,11.341,77.7172,12.6,Tiruppur,Erode Jn,91.2
+146,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+147,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+148,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+149,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+150,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+151,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+152,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+153,11.341,77.7172,0.0,Erode Jn,Salem Jn,91.12289
+154,11.3421,77.71865,12.0,Erode Jn,Salem Jn,91.3
+155,11.34327,77.72021,12.8,Erode Jn,Salem Jn,91.5
+156,11.34451,77.72186,13.7,Erode Jn,Salem Jn,91.8
+157,11.34585,77.72363,14.6,Erode Jn,Salem Jn,92.0
+158,11.34727,77.72551,15.5,Erode Jn,Salem Jn,92.3
+159,11.34878,77.72752,16.6,Erode Jn,Salem Jn,92.5
+160,11.3504,77.72966,17.7,Erode Jn,Salem Jn,92.8
+161,11.35212,77.73195,18.9,Erode Jn,Salem Jn,93.2
+162,11.35396,77.73439,20.1,Erode Jn,Salem Jn,93.5
+163,11.35592,77.73699,21.5,Erode Jn,Salem Jn,93.8
+164,11.35801,77.73976,22.9,Erode Jn,Salem Jn,94.2
+165,11.36024,77.74272,24.4,Erode Jn,Salem Jn,94.6
+166,11.36262,77.74587,26.0,Erode Jn,Salem Jn,95.1
+167,11.36516,77.74924,27.8,Erode Jn,Salem Jn,95.5
+168,11.36786,77.75283,29.6,Erode Jn,Salem Jn,96.0
+169,11.37075,77.75666,31.6,Erode Jn,Salem Jn,96.5
+170,11.37383,77.76075,33.7,Erode Jn,Salem Jn,97.1
+171,11.37712,77.7651,35.9,Erode Jn,Salem Jn,97.7
+172,11.38062,77.76975,38.3,Erode Jn,Salem Jn,98.3
+173,11.38436,77.77471,40.9,Erode Jn,Salem Jn,99.0
+174,11.38835,77.78,43.6,Erode Jn,Salem Jn,99.8
+175,11.3926,77.78564,46.5,Erode Jn,Salem Jn,100.5
+176,11.39714,77.79166,49.6,Erode Jn,Salem Jn,101.4
+177,11.40198,77.79808,52.9,Erode Jn,Salem Jn,102.2
+178,11.40714,77.80492,56.5,Erode Jn,Salem Jn,103.2
+179,11.41265,77.81223,60.2,Erode Jn,Salem Jn,104.2
+180,11.41852,77.82002,64.3,Erode Jn,Salem Jn,105.3
+181,11.42479,77.82833,68.5,Erode Jn,Salem Jn,106.4
+182,11.43147,77.83719,73.1,Erode Jn,Salem Jn,107.6
+183,11.4386,77.84664,78.0,Erode Jn,Salem Jn,108.9
+184,11.4462,77.85673,83.2,Erode Jn,Salem Jn,110.3
+185,11.45431,77.86748,88.7,Erode Jn,Salem Jn,111.8
+186,11.46254,77.8784,90.0,Erode Jn,Salem Jn,113.3
+187,11.47076,77.88931,90.0,Erode Jn,Salem Jn,114.8
+188,11.47899,77.90022,90.0,Erode Jn,Salem Jn,116.3
+189,11.48721,77.91113,90.0,Erode Jn,Salem Jn,117.8
+190,11.49544,77.92204,90.0,Erode Jn,Salem Jn,119.3
+191,11.50367,77.93295,90.0,Erode Jn,Salem Jn,120.8
+192,11.51189,77.94386,90.0,Erode Jn,Salem Jn,122.3
+193,11.52012,77.95477,90.0,Erode Jn,Salem Jn,123.8
+194,11.52834,77.96568,90.0,Erode Jn,Salem Jn,125.3
+195,11.53657,77.97659,90.0,Erode Jn,Salem Jn,126.8
+196,11.5448,77.9875,90.0,Erode Jn,Salem Jn,128.3
+197,11.55302,77.99841,90.0,Erode Jn,Salem Jn,129.8
+198,11.56125,78.00932,90.0,Erode Jn,Salem Jn,131.3
+199,11.56922,78.01989,87.2,Erode Jn,Salem Jn,132.7
+200,11.57665,78.02975,81.4,Erode Jn,Salem Jn,134.1
+201,11.58359,78.03896,75.9,Erode Jn,Salem Jn,135.4
+202,11.59007,78.04755,70.9,Erode Jn,Salem Jn,136.5
+203,11.59611,78.05556,66.1,Erode Jn,Salem Jn,137.6
+204,11.60176,78.06305,61.7,Erode Jn,Salem Jn,138.7
+205,11.60702,78.07003,57.6,Erode Jn,Salem Jn,139.6
+206,11.61194,78.07655,53.8,Erode Jn,Salem Jn,140.5
+207,11.61653,78.08264,50.2,Erode Jn,Salem Jn,141.4
+208,11.62081,78.08832,46.8,Erode Jn,Salem Jn,142.1
+209,11.6248,78.09362,43.7,Erode Jn,Salem Jn,142.9
+210,11.62853,78.09856,40.8,Erode Jn,Salem Jn,143.6
+211,11.63202,78.10318,38.1,Erode Jn,Salem Jn,144.2
+212,11.63526,78.10749,35.5,Erode Jn,Salem Jn,144.8
+213,11.6383,78.11151,33.2,Erode Jn,Salem Jn,145.3
+214,11.64113,78.11527,31.0,Erode Jn,Salem Jn,145.8
+215,11.64377,78.11877,28.9,Erode Jn,Salem Jn,146.3
+216,11.64623,78.12204,27.0,Erode Jn,Salem Jn,146.8
+217,11.64854,78.12509,25.2,Erode Jn,Salem Jn,147.2
+218,11.65068,78.12794,23.5,Erode Jn,Salem Jn,147.6
+219,11.65269,78.1306,21.9,Erode Jn,Salem Jn,148.0
+220,11.65456,78.13308,20.5,Erode Jn,Salem Jn,148.3
+221,11.65631,78.1354,19.1,Erode Jn,Salem Jn,148.6
+222,11.65794,78.13756,17.8,Erode Jn,Salem Jn,148.9
+223,11.65946,78.13958,16.6,Erode Jn,Salem Jn,149.2
+224,11.66088,78.14146,15.5,Erode Jn,Salem Jn,149.5
+225,11.6622,78.14322,14.5,Erode Jn,Salem Jn,149.7
+226,11.66344,78.14486,13.5,Erode Jn,Salem Jn,149.9
+227,11.6643,78.146,12.6,Erode Jn,Salem Jn,150.1
+228,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+229,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+230,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+231,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+232,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+233,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+234,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+235,11.6643,78.146,0.0,Salem Jn,Jolarpettai,150.07509
+236,11.66593,78.14677,12.0,Salem Jn,Jolarpettai,150.3
+237,11.66767,78.1476,12.8,Salem Jn,Jolarpettai,150.5
+238,11.66953,78.14847,13.7,Salem Jn,Jolarpettai,150.7
+239,11.67151,78.14941,14.6,Salem Jn,Jolarpettai,151.0
+240,11.67363,78.15041,15.5,Salem Jn,Jolarpettai,151.2
+241,11.67588,78.15148,16.6,Salem Jn,Jolarpettai,151.5
+242,11.67828,78.15262,17.7,Salem Jn,Jolarpettai,151.8
+243,11.68085,78.15383,18.9,Salem Jn,Jolarpettai,152.1
+244,11.68358,78.15512,20.1,Salem Jn,Jolarpettai,152.4
+245,11.6865,78.1565,21.5,Salem Jn,Jolarpettai,152.8
+246,11.68962,78.15798,22.9,Salem Jn,Jolarpettai,153.2
+247,11.69294,78.15955,24.4,Salem Jn,Jolarpettai,153.6
+248,11.69648,78.16122,26.0,Salem Jn,Jolarpettai,154.0
+249,11.70025,78.16301,27.8,Salem Jn,Jolarpettai,154.5
+250,11.70428,78.16492,29.6,Salem Jn,Jolarpettai,155.0
+251,11.70858,78.16695,31.6,Salem Jn,Jolarpettai,155.5
+252,11.71317,78.16912,33.7,Salem Jn,Jolarpettai,156.1
+253,11.71806,78.17143,35.9,Salem Jn,Jolarpettai,156.7
+254,11.72327,78.1739,38.3,Salem Jn,Jolarpettai,157.3
+255,11.72884,78.17653,40.9,Salem Jn,Jolarpettai,158.0
+256,11.73477,78.17934,43.6,Salem Jn,Jolarpettai,158.7
+257,11.7411,78.18233,46.5,Salem Jn,Jolarpettai,159.5
+258,11.74786,78.18553,49.6,Salem Jn,Jolarpettai,160.3
+259,11.75506,78.18894,52.9,Salem Jn,Jolarpettai,161.2
+260,11.76274,78.19257,56.5,Salem Jn,Jolarpettai,162.1
+261,11.77094,78.19645,60.2,Salem Jn,Jolarpettai,163.1
+262,11.77968,78.20058,64.3,Salem Jn,Jolarpettai,164.2
+263,11.789,78.205,68.5,Salem Jn,Jolarpettai,165.4
+264,11.79895,78.2097,73.1,Salem Jn,Jolarpettai,166.6
+265,11.80956,78.21472,78.0,Salem Jn,Jolarpettai,167.9
+266,11.82087,78.22007,83.2,Salem Jn,Jolarpettai,169.3
+267,11.83295,78.22578,88.7,Salem Jn,Jolarpettai,170.7
+268,11.84519,78.23158,90.0,Salem Jn,Jolarpettai,172.2
+269,11.85743,78.23737,90.0,Salem Jn,Jolarpettai,173.7
+270,11.86968,78.24316,90.0,Salem Jn,Jolarpettai,175.2
+271,11.88192,78.24895,90.0,Salem Jn,Jolarpettai,176.7
+272,11.89416,78.25474,90.0,Salem Jn,Jolarpettai,178.2
+273,11.90641,78.26054,90.0,Salem Jn,Jolarpettai,179.7
+274,11.91865,78.26633,90.0,Salem Jn,Jolarpettai,181.2
+275,11.93089,78.27212,90.0,Salem Jn,Jolarpettai,182.7
+276,11.94314,78.27791,90.0,Salem Jn,Jolarpettai,184.2
+277,11.95538,78.28371,90.0,Salem Jn,Jolarpettai,185.7
+278,11.96762,78.2895,90.0,Salem Jn,Jolarpettai,187.2
+279,11.97987,78.29529,90.0,Salem Jn,Jolarpettai,188.7
+280,11.99211,78.30108,90.0,Salem Jn,Jolarpettai,190.2
+281,12.00436,78.30688,90.0,Salem Jn,Jolarpettai,191.7
+282,12.0166,78.31267,90.0,Salem Jn,Jolarpettai,193.2
+283,12.02884,78.31846,90.0,Salem Jn,Jolarpettai,194.7
+284,12.04109,78.32425,90.0,Salem Jn,Jolarpettai,196.2
+285,12.05333,78.33004,90.0,Salem Jn,Jolarpettai,197.7
+286,12.06557,78.33584,90.0,Salem Jn,Jolarpettai,199.2
+287,12.07782,78.34163,90.0,Salem Jn,Jolarpettai,200.7
+288,12.09006,78.34742,90.0,Salem Jn,Jolarpettai,202.2
+289,12.1023,78.35321,90.0,Salem Jn,Jolarpettai,203.7
+290,12.11455,78.35901,90.0,Salem Jn,Jolarpettai,205.2
+291,12.12679,78.3648,90.0,Salem Jn,Jolarpettai,206.7
+292,12.13903,78.37059,90.0,Salem Jn,Jolarpettai,208.2
+293,12.15128,78.37638,90.0,Salem Jn,Jolarpettai,209.7
+294,12.16352,78.38217,90.0,Salem Jn,Jolarpettai,211.2
+295,12.17576,78.38797,90.0,Salem Jn,Jolarpettai,212.7
+296,12.18801,78.39376,90.0,Salem Jn,Jolarpettai,214.2
+297,12.20025,78.39955,90.0,Salem Jn,Jolarpettai,215.7
+298,12.2125,78.40534,90.0,Salem Jn,Jolarpettai,217.2
+299,12.22474,78.41114,90.0,Salem Jn,Jolarpettai,218.7
+300,12.23698,78.41693,90.0,Salem Jn,Jolarpettai,220.2
+301,12.24923,78.42272,90.0,Salem Jn,Jolarpettai,221.7
+302,12.26147,78.42851,90.0,Salem Jn,Jolarpettai,223.2
+303,12.27371,78.4343,90.0,Salem Jn,Jolarpettai,224.7
+304,12.28596,78.4401,90.0,Salem Jn,Jolarpettai,226.2
+305,12.2982,78.44589,90.0,Salem Jn,Jolarpettai,227.7
+306,12.31044,78.45168,90.0,Salem Jn,Jolarpettai,229.2
+307,12.32269,78.45747,90.0,Salem Jn,Jolarpettai,230.7
+308,12.33493,78.46327,90.0,Salem Jn,Jolarpettai,232.2
+309,12.34717,78.46906,90.0,Salem Jn,Jolarpettai,233.7
+310,12.35942,78.47485,90.0,Salem Jn,Jolarpettai,235.2
+311,12.37166,78.48064,90.0,Salem Jn,Jolarpettai,236.7
+312,12.38391,78.48643,90.0,Salem Jn,Jolarpettai,238.2
+313,12.39615,78.49223,90.0,Salem Jn,Jolarpettai,239.7
+314,12.40839,78.49802,90.0,Salem Jn,Jolarpettai,241.2
+315,12.42064,78.50381,90.0,Salem Jn,Jolarpettai,242.7
+316,12.43216,78.50926,84.7,Salem Jn,Jolarpettai,244.1
+317,12.44291,78.51435,79.1,Salem Jn,Jolarpettai,245.5
+318,12.45295,78.5191,73.8,Salem Jn,Jolarpettai,246.7
+319,12.46232,78.52353,68.9,Salem Jn,Jolarpettai,247.8
+320,12.47107,78.52767,64.3,Salem Jn,Jolarpettai,248.9
+321,12.47923,78.53153,60.0,Salem Jn,Jolarpettai,249.9
+322,12.48684,78.53513,56.0,Salem Jn,Jolarpettai,250.8
+323,12.49395,78.5385,52.3,Salem Jn,Jolarpettai,251.7
+324,12.50059,78.54164,48.8,Salem Jn,Jolarpettai,252.5
+325,12.50678,78.54457,45.5,Salem Jn,Jolarpettai,253.3
+326,12.51256,78.5473,42.5,Salem Jn,Jolarpettai,254.0
+327,12.51796,78.54985,39.7,Salem Jn,Jolarpettai,254.7
+328,12.52299,78.55223,37.0,Salem Jn,Jolarpettai,255.3
+329,12.52769,78.55446,34.5,Salem Jn,Jolarpettai,255.9
+330,12.53208,78.55653,32.2,Salem Jn,Jolarpettai,256.4
+331,12.53617,78.55847,30.1,Salem Jn,Jolarpettai,256.9
+332,12.53999,78.56028,28.1,Salem Jn,Jolarpettai,257.4
+333,12.54356,78.56196,26.2,Salem Jn,Jolarpettai,257.8
+334,12.54689,78.56354,24.5,Salem Jn,Jolarpettai,258.2
+335,12.55,78.56501,22.8,Salem Jn,Jolarpettai,258.6
+336,12.55289,78.56638,21.3,Salem Jn,Jolarpettai,258.9
+337,12.5556,78.56766,19.9,Salem Jn,Jolarpettai,259.3
+338,12.55813,78.56886,18.6,Salem Jn,Jolarpettai,259.6
+339,12.56048,78.56997,17.3,Salem Jn,Jolarpettai,259.9
+340,12.56268,78.57101,16.2,Salem Jn,Jolarpettai,260.1
+341,12.56474,78.57198,15.1,Salem Jn,Jolarpettai,260.4
+342,12.56665,78.57289,14.1,Salem Jn,Jolarpettai,260.6
+343,12.56844,78.57374,13.1,Salem Jn,Jolarpettai,260.8
+344,12.569,78.574,12.3,Salem Jn,Jolarpettai,261.0
+345,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+346,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+347,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+348,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+349,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+350,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+351,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+352,12.569,78.574,0.0,Jolarpettai,Katpadi Jn,260.91312
+353,12.57006,78.57549,12.0,Jolarpettai,Katpadi Jn,261.1
+354,12.5712,78.57707,12.8,Jolarpettai,Katpadi Jn,261.3
+355,12.57241,78.57876,13.7,Jolarpettai,Katpadi Jn,261.6
+356,12.5737,78.58057,14.6,Jolarpettai,Katpadi Jn,261.8
+357,12.57508,78.58249,15.5,Jolarpettai,Katpadi Jn,262.1
+358,12.57655,78.58454,16.6,Jolarpettai,Katpadi Jn,262.3
+359,12.57812,78.58673,17.7,Jolarpettai,Katpadi Jn,262.6
+360,12.57979,78.58907,18.9,Jolarpettai,Katpadi Jn,262.9
+361,12.58158,78.59156,20.1,Jolarpettai,Katpadi Jn,263.3
+362,12.58348,78.59422,21.5,Jolarpettai,Katpadi Jn,263.6
+363,12.58551,78.59705,22.9,Jolarpettai,Katpadi Jn,264.0
+364,12.58767,78.60008,24.4,Jolarpettai,Katpadi Jn,264.4
+365,12.58998,78.6033,26.0,Jolarpettai,Katpadi Jn,264.9
+366,12.59245,78.60674,27.8,Jolarpettai,Katpadi Jn,265.3
+367,12.59507,78.61041,29.6,Jolarpettai,Katpadi Jn,265.8
+368,12.59788,78.61432,31.6,Jolarpettai,Katpadi Jn,266.3
+369,12.60087,78.6185,33.7,Jolarpettai,Katpadi Jn,266.9
+370,12.60405,78.62295,35.9,Jolarpettai,Katpadi Jn,267.5
+371,12.60746,78.6277,38.3,Jolarpettai,Katpadi Jn,268.1
+372,12.61108,78.63277,40.9,Jolarpettai,Katpadi Jn,268.8
+373,12.61495,78.63817,43.6,Jolarpettai,Katpadi Jn,269.5
+374,12.61908,78.64394,46.5,Jolarpettai,Katpadi Jn,270.3
+375,12.62349,78.65009,49.6,Jolarpettai,Katpadi Jn,271.1
+376,12.62818,78.65665,52.9,Jolarpettai,Katpadi Jn,272.0
+377,12.63319,78.66364,56.5,Jolarpettai,Katpadi Jn,273.0
+378,12.63854,78.67111,60.2,Jolarpettai,Katpadi Jn,274.0
+379,12.64424,78.67907,64.3,Jolarpettai,Katpadi Jn,275.0
+380,12.65032,78.68756,68.5,Jolarpettai,Katpadi Jn,276.2
+381,12.6568,78.69662,73.1,Jolarpettai,Katpadi Jn,277.4
+382,12.66372,78.70628,78.0,Jolarpettai,Katpadi Jn,278.7
+383,12.6711,78.71658,83.2,Jolarpettai,Katpadi Jn,280.1
+384,12.67897,78.72757,88.7,Jolarpettai,Katpadi Jn,281.6
+385,12.68696,78.73872,90.0,Jolarpettai,Katpadi Jn,283.1
+386,12.69494,78.74987,90.0,Jolarpettai,Katpadi Jn,284.6
+387,12.70292,78.76102,90.0,Jolarpettai,Katpadi Jn,286.1
+388,12.71091,78.77217,90.0,Jolarpettai,Katpadi Jn,287.6
+389,12.71889,78.78332,90.0,Jolarpettai,Katpadi Jn,289.1
+390,12.72688,78.79447,90.0,Jolarpettai,Katpadi Jn,290.6
+391,12.73486,78.80562,90.0,Jolarpettai,Katpadi Jn,292.1
+392,12.74284,78.81677,90.0,Jolarpettai,Katpadi Jn,293.6
+393,12.75083,78.82792,90.0,Jolarpettai,Katpadi Jn,295.1
+394,12.75881,78.83907,90.0,Jolarpettai,Katpadi Jn,296.6
+395,12.7668,78.85022,90.0,Jolarpettai,Katpadi Jn,298.1
+396,12.77478,78.86137,90.0,Jolarpettai,Katpadi Jn,299.6
+397,12.78276,78.87251,90.0,Jolarpettai,Katpadi Jn,301.1
+398,12.79075,78.88366,90.0,Jolarpettai,Katpadi Jn,302.6
+399,12.79873,78.89481,90.0,Jolarpettai,Katpadi Jn,304.1
+400,12.80671,78.90596,90.0,Jolarpettai,Katpadi Jn,305.6
+401,12.8147,78.91711,90.0,Jolarpettai,Katpadi Jn,307.1
+402,12.82268,78.92826,90.0,Jolarpettai,Katpadi Jn,308.6
+403,12.83067,78.93941,90.0,Jolarpettai,Katpadi Jn,310.1
+404,12.83865,78.95056,90.0,Jolarpettai,Katpadi Jn,311.6
+405,12.84663,78.96171,90.0,Jolarpettai,Katpadi Jn,313.1
+406,12.85462,78.97286,90.0,Jolarpettai,Katpadi Jn,314.6
+407,12.8626,78.98401,90.0,Jolarpettai,Katpadi Jn,316.1
+408,12.87059,78.99516,90.0,Jolarpettai,Katpadi Jn,317.6
+409,12.8784,79.00607,88.1,Jolarpettai,Katpadi Jn,319.0
+410,12.88569,79.01625,82.2,Jolarpettai,Katpadi Jn,320.4
+411,12.89249,79.02575,76.7,Jolarpettai,Katpadi Jn,321.7
+412,12.89885,79.03462,71.6,Jolarpettai,Katpadi Jn,322.9
+413,12.90477,79.0429,66.8,Jolarpettai,Katpadi Jn,324.0
+414,12.91031,79.05063,62.4,Jolarpettai,Katpadi Jn,325.0
+415,12.91547,79.05784,58.2,Jolarpettai,Katpadi Jn,326.0
+416,12.92029,79.06457,54.3,Jolarpettai,Katpadi Jn,326.9
+417,12.92479,79.07085,50.7,Jolarpettai,Katpadi Jn,327.8
+418,12.92899,79.07671,47.3,Jolarpettai,Katpadi Jn,328.5
+419,12.93291,79.08219,44.2,Jolarpettai,Katpadi Jn,329.3
+420,12.93656,79.08729,41.2,Jolarpettai,Katpadi Jn,330.0
+421,12.93998,79.09206,38.5,Jolarpettai,Katpadi Jn,330.6
+422,12.94316,79.09651,35.9,Jolarpettai,Katpadi Jn,331.2
+423,12.94614,79.10066,33.5,Jolarpettai,Katpadi Jn,331.8
+424,12.94891,79.10454,31.3,Jolarpettai,Katpadi Jn,332.3
+425,12.9515,79.10816,29.2,Jolarpettai,Katpadi Jn,332.8
+426,12.95392,79.11153,27.3,Jolarpettai,Katpadi Jn,333.2
+427,12.95618,79.11468,25.4,Jolarpettai,Katpadi Jn,333.7
+428,12.95828,79.11762,23.7,Jolarpettai,Katpadi Jn,334.1
+429,12.96025,79.12037,22.2,Jolarpettai,Katpadi Jn,334.4
+430,12.96208,79.12293,20.7,Jolarpettai,Katpadi Jn,334.8
+431,12.9638,79.12532,19.3,Jolarpettai,Katpadi Jn,335.1
+432,12.96539,79.12755,18.0,Jolarpettai,Katpadi Jn,335.4
+433,12.96689,79.12964,16.8,Jolarpettai,Katpadi Jn,335.7
+434,12.96828,79.13158,15.7,Jolarpettai,Katpadi Jn,335.9
+435,12.96958,79.1334,14.6,Jolarpettai,Katpadi Jn,336.2
+436,12.97079,79.13509,13.7,Jolarpettai,Katpadi Jn,336.4
+437,12.9718,79.1365,12.8,Jolarpettai,Katpadi Jn,336.6
+438,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+439,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+440,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+441,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+442,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+443,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+444,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+445,12.9718,79.1365,0.0,Katpadi Jn,Arakkonam,336.59045
+446,12.97216,79.13831,12.0,Katpadi Jn,Arakkonam,336.8
+447,12.97254,79.14024,12.8,Katpadi Jn,Arakkonam,337.0
+448,12.97294,79.1423,13.7,Katpadi Jn,Arakkonam,337.2
+449,12.97338,79.14449,14.6,Katpadi Jn,Arakkonam,337.5
+450,12.97384,79.14684,15.5,Katpadi Jn,Arakkonam,337.7
+451,12.97433,79.14934,16.6,Katpadi Jn,Arakkonam,338.0
+452,12.97486,79.152,17.7,Katpadi Jn,Arakkonam,338.3
+453,12.97542,79.15484,18.9,Katpadi Jn,Arakkonam,338.6
+454,12.97602,79.15788,20.1,Katpadi Jn,Arakkonam,339.0
+455,12.97665,79.16111,21.5,Katpadi Jn,Arakkonam,339.3
+456,12.97733,79.16456,22.9,Katpadi Jn,Arakkonam,339.7
+457,12.97806,79.16824,24.4,Katpadi Jn,Arakkonam,340.1
+458,12.97883,79.17217,26.0,Katpadi Jn,Arakkonam,340.5
+459,12.97966,79.17635,27.8,Katpadi Jn,Arakkonam,341.0
+460,12.98054,79.18082,29.6,Katpadi Jn,Arakkonam,341.5
+461,12.98148,79.18558,31.6,Katpadi Jn,Arakkonam,342.0
+462,12.98248,79.19066,33.7,Katpadi Jn,Arakkonam,342.6
+463,12.98355,79.19609,35.9,Katpadi Jn,Arakkonam,343.2
+464,12.98469,79.20187,38.3,Katpadi Jn,Arakkonam,343.8
+465,12.98591,79.20803,40.9,Katpadi Jn,Arakkonam,344.5
+466,12.9872,79.21461,43.6,Katpadi Jn,Arakkonam,345.2
+467,12.98859,79.22163,46.5,Katpadi Jn,Arakkonam,346.0
+468,12.99006,79.22911,49.6,Katpadi Jn,Arakkonam,346.8
+469,12.99164,79.2371,52.9,Katpadi Jn,Arakkonam,347.7
+470,12.99332,79.24561,56.5,Katpadi Jn,Arakkonam,348.7
+471,12.99511,79.2547,60.2,Katpadi Jn,Arakkonam,349.7
+472,12.99702,79.26439,64.3,Katpadi Jn,Arakkonam,350.7
+473,12.99906,79.27472,68.5,Katpadi Jn,Arakkonam,351.9
+474,13.00123,79.28575,73.1,Katpadi Jn,Arakkonam,353.1
+475,13.00355,79.29751,78.0,Katpadi Jn,Arakkonam,354.4
+476,13.00602,79.31005,83.2,Katpadi Jn,Arakkonam,355.8
+477,13.00866,79.32343,88.7,Katpadi Jn,Arakkonam,357.3
+478,13.01134,79.337,90.0,Katpadi Jn,Arakkonam,358.8
+479,13.01401,79.35057,90.0,Katpadi Jn,Arakkonam,360.3
+480,13.01669,79.36414,90.0,Katpadi Jn,Arakkonam,361.8
+481,13.01936,79.37771,90.0,Katpadi Jn,Arakkonam,363.3
+482,13.02204,79.39128,90.0,Katpadi Jn,Arakkonam,364.8
+483,13.02472,79.40485,90.0,Katpadi Jn,Arakkonam,366.3
+484,13.02739,79.41842,90.0,Katpadi Jn,Arakkonam,367.8
+485,13.03007,79.432,90.0,Katpadi Jn,Arakkonam,369.3
+486,13.03274,79.44557,90.0,Katpadi Jn,Arakkonam,370.8
+487,13.03542,79.45914,90.0,Katpadi Jn,Arakkonam,372.3
+488,13.0381,79.47271,90.0,Katpadi Jn,Arakkonam,373.8
+489,13.04077,79.48628,90.0,Katpadi Jn,Arakkonam,375.3
+490,13.04345,79.49985,90.0,Katpadi Jn,Arakkonam,376.8
+491,13.04604,79.513,87.2,Katpadi Jn,Arakkonam,378.2
+492,13.04846,79.52528,81.4,Katpadi Jn,Arakkonam,379.6
+493,13.05072,79.53674,76.0,Katpadi Jn,Arakkonam,380.8
+494,13.05283,79.54743,70.9,Katpadi Jn,Arakkonam,382.0
+495,13.0548,79.55741,66.2,Katpadi Jn,Arakkonam,383.1
+496,13.05664,79.56673,61.8,Katpadi Jn,Arakkonam,384.1
+497,13.05835,79.57542,57.7,Katpadi Jn,Arakkonam,385.1
+498,13.05995,79.58354,53.8,Katpadi Jn,Arakkonam,386.0
+499,13.06144,79.59111,50.2,Katpadi Jn,Arakkonam,386.8
+500,13.06284,79.59818,46.9,Katpadi Jn,Arakkonam,387.6
+501,13.06414,79.60478,43.8,Katpadi Jn,Arakkonam,388.3
+502,13.06535,79.61093,40.8,Katpadi Jn,Arakkonam,389.0
+503,13.06649,79.61668,38.1,Katpadi Jn,Arakkonam,389.7
+504,13.06754,79.62204,35.6,Katpadi Jn,Arakkonam,390.3
+505,13.06853,79.62705,33.2,Katpadi Jn,Arakkonam,390.8
+506,13.06945,79.63172,31.0,Katpadi Jn,Arakkonam,391.3
+507,13.07031,79.63608,28.9,Katpadi Jn,Arakkonam,391.8
+508,13.07111,79.64016,27.0,Katpadi Jn,Arakkonam,392.3
+509,13.07186,79.64395,25.2,Katpadi Jn,Arakkonam,392.7
+510,13.07256,79.6475,23.5,Katpadi Jn,Arakkonam,393.1
+511,13.07322,79.65081,21.9,Katpadi Jn,Arakkonam,393.4
+512,13.07382,79.6539,20.5,Katpadi Jn,Arakkonam,393.8
+513,13.07439,79.65678,19.1,Katpadi Jn,Arakkonam,394.1
+514,13.07492,79.65947,17.8,Katpadi Jn,Arakkonam,394.4
+515,13.07542,79.66198,16.7,Katpadi Jn,Arakkonam,394.7
+516,13.07588,79.66433,15.5,Katpadi Jn,Arakkonam,394.9
+517,13.07631,79.66651,14.5,Katpadi Jn,Arakkonam,395.2
+518,13.07672,79.66856,13.5,Katpadi Jn,Arakkonam,395.4
+519,13.077,79.67,12.6,Katpadi Jn,Arakkonam,395.6
+520,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+521,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+522,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+523,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+524,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+525,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+526,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+527,13.077,79.67,0.0,Arakkonam,Chennai Central,395.5587
+528,13.07702,79.67185,12.0,Arakkonam,Chennai Central,395.8
+529,13.07704,79.67382,12.8,Arakkonam,Chennai Central,396.0
+530,13.07706,79.67592,13.7,Arakkonam,Chennai Central,396.2
+531,13.07708,79.67816,14.6,Arakkonam,Chennai Central,396.4
+532,13.0771,79.68055,15.5,Arakkonam,Chennai Central,396.7
+533,13.07712,79.6831,16.6,Arakkonam,Chennai Central,397.0
+534,13.07715,79.68582,17.7,Arakkonam,Chennai Central,397.3
+535,13.07718,79.68872,18.9,Arakkonam,Chennai Central,397.6
+536,13.07721,79.69181,20.1,Arakkonam,Chennai Central,397.9
+537,13.07724,79.69511,21.5,Arakkonam,Chennai Central,398.3
+538,13.07727,79.69863,22.9,Arakkonam,Chennai Central,398.7
+539,13.0773,79.70239,24.4,Arakkonam,Chennai Central,399.1
+540,13.07734,79.7064,26.0,Arakkonam,Chennai Central,399.5
+541,13.07738,79.71067,27.8,Arakkonam,Chennai Central,400.0
+542,13.07743,79.71523,29.6,Arakkonam,Chennai Central,400.5
+543,13.07747,79.72009,31.6,Arakkonam,Chennai Central,401.0
+544,13.07752,79.72527,33.7,Arakkonam,Chennai Central,401.5
+545,13.07757,79.7308,35.9,Arakkonam,Chennai Central,402.1
+546,13.07763,79.7367,38.3,Arakkonam,Chennai Central,402.8
+547,13.07769,79.743,40.9,Arakkonam,Chennai Central,403.5
+548,13.07775,79.74971,43.6,Arakkonam,Chennai Central,404.2
+549,13.07782,79.75687,46.5,Arakkonam,Chennai Central,405.0
+550,13.07789,79.76451,49.6,Arakkonam,Chennai Central,405.8
+551,13.07797,79.77266,52.9,Arakkonam,Chennai Central,406.7
+552,13.07805,79.78135,56.5,Arakkonam,Chennai Central,407.6
+553,13.07814,79.79062,60.2,Arakkonam,Chennai Central,408.6
+554,13.07823,79.8005,64.3,Arakkonam,Chennai Central,409.7
+555,13.07833,79.81105,68.5,Arakkonam,Chennai Central,410.8
+556,13.07843,79.8223,73.1,Arakkonam,Chennai Central,412.1
+557,13.07855,79.8343,78.0,Arakkonam,Chennai Central,413.4
+558,13.07867,79.8471,83.2,Arakkonam,Chennai Central,414.7
+559,13.0788,79.86075,88.7,Arakkonam,Chennai Central,416.2
+560,13.07893,79.8746,90.0,Arakkonam,Chennai Central,417.7
+561,13.07906,79.88845,90.0,Arakkonam,Chennai Central,419.2
+562,13.07919,79.9023,90.0,Arakkonam,Chennai Central,420.7
+563,13.07932,79.91615,90.0,Arakkonam,Chennai Central,422.2
+564,13.07945,79.93,90.0,Arakkonam,Chennai Central,423.7
+565,13.07958,79.94384,90.0,Arakkonam,Chennai Central,425.2
+566,13.07971,79.95769,90.0,Arakkonam,Chennai Central,426.7
+567,13.07984,79.97154,90.0,Arakkonam,Chennai Central,428.2
+568,13.07997,79.98539,90.0,Arakkonam,Chennai Central,429.7
+569,13.0801,79.99924,90.0,Arakkonam,Chennai Central,431.2
+570,13.08023,80.01309,90.0,Arakkonam,Chennai Central,432.7
+571,13.08036,80.02693,90.0,Arakkonam,Chennai Central,434.2
+572,13.08049,80.04078,90.0,Arakkonam,Chennai Central,435.7
+573,13.08062,80.05463,90.0,Arakkonam,Chennai Central,437.2
+574,13.08075,80.06848,90.0,Arakkonam,Chennai Central,438.7
+575,13.08088,80.08233,90.0,Arakkonam,Chennai Central,440.2
+576,13.08101,80.09618,90.0,Arakkonam,Chennai Central,441.7
+577,13.08114,80.10999,89.8,Arakkonam,Chennai Central,443.2
+578,13.08126,80.12289,83.8,Arakkonam,Chennai Central,444.6
+579,13.08138,80.13492,78.2,Arakkonam,Chennai Central,445.9
+580,13.08148,80.14615,73.0,Arakkonam,Chennai Central,447.1
+581,13.08158,80.15663,68.1,Arakkonam,Chennai Central,448.3
+582,13.08167,80.16642,63.6,Arakkonam,Chennai Central,449.3
+583,13.08176,80.17555,59.3,Arakkonam,Chennai Central,450.3
+584,13.08184,80.18407,55.4,Arakkonam,Chennai Central,451.2
+585,13.08191,80.19203,51.7,Arakkonam,Chennai Central,452.1
+586,13.08198,80.19945,48.3,Arakkonam,Chennai Central,452.9
+587,13.08205,80.20638,45.0,Arakkonam,Chennai Central,453.7
+588,13.08211,80.21285,42.0,Arakkonam,Chennai Central,454.4
+589,13.08217,80.21889,39.2,Arakkonam,Chennai Central,455.0
+590,13.08222,80.22452,36.6,Arakkonam,Chennai Central,455.6
+591,13.08227,80.22978,34.2,Arakkonam,Chennai Central,456.2
+592,13.08231,80.23469,31.9,Arakkonam,Chennai Central,456.7
+593,13.08236,80.23927,29.8,Arakkonam,Chennai Central,457.2
+594,13.0824,80.24354,27.8,Arakkonam,Chennai Central,457.7
+595,13.08243,80.24753,25.9,Arakkonam,Chennai Central,458.1
+596,13.08247,80.25126,24.2,Arakkonam,Chennai Central,458.5
+597,13.0825,80.25473,22.6,Arakkonam,Chennai Central,458.9
+598,13.08253,80.25798,21.1,Arakkonam,Chennai Central,459.2
+599,13.08256,80.26101,19.7,Arakkonam,Chennai Central,459.6
+600,13.08259,80.26383,18.4,Arakkonam,Chennai Central,459.9
+601,13.08261,80.26647,17.1,Arakkonam,Chennai Central,460.2
+602,13.08264,80.26893,16.0,Arakkonam,Chennai Central,460.4
+603,13.08266,80.27123,14.9,Arakkonam,Chennai Central,460.7
+604,13.08268,80.27337,13.9,Arakkonam,Chennai Central,460.9
+605,13.0827,80.27538,13.0,Arakkonam,Chennai Central,461.1
+606,13.0827,80.2757,12.1,Arakkonam,Chennai Central,461.3
+607,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+608,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+609,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+610,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+611,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+612,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+613,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2
+614,13.0827,80.2757,0.0,Chennai Central,Chennai Central,461.2

@@ -1,0 +1,14 @@
+.env
+venv/
+__pycache__/
+*.py[cod]
+logs/
+
+# Android local configuration and generated build output
+android/.gradle/
+android/local.properties
+android/**/build/
+
+# Generated APKs
+RailGuard360.apk
+*.apk

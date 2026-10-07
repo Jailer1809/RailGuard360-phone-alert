@@ -1,0 +1,13 @@
+{
+  "train": {"number": "12680", "name": "Coimbatore - Chennai (demo)", "coach": "S4"},
+  "min_speed_kmph": 20,
+  "detect": {"min_probability": 0.75, "votes_needed": 3, "of_last": 5, "cooldown_seconds": 20},
+  "web": {"time_scale": 30, "cruise_speed_kmph": 160, "camera_index": 0},
+  "contacts": {
+    "guard": {"name": "Train Guard", "phone": "+919952233610"},
+    "control": {"name": "Railway Control Room", "phone": "+918807899742"},
+    "police": {"name": "Station Police (RPF/GRP)", "phone": "+918667362203"},
+    "ambulance": {"name": "Ambulance", "phone": "+918072343604"}
+  },
+  "note": "Emergency alert recipients updated."
+}

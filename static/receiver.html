@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>RailGuard 360 - Emergency HUD Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b10;
+      --panel: #0d1622;
+      --hud-border: #1e3a58;
+      --hud-glow: rgba(0, 200, 255, 0.25);
+      --red-alert: #ff1e38;
+      --red-glow: rgba(255, 30, 56, 0.6);
+      --cyan: #00e5ff;
+      --amber: #ffb703;
+      --green: #00ff88;
+      --tx: #e0f2fe;
+      --tx-mut: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg);
+      color: var(--tx);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.15), transparent 70%),
+        linear-gradient(rgba(7, 11, 16, 0.95), rgba(7, 11, 16, 0.95)),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 229, 255, 0.03) 2px, rgba(0, 229, 255, 0.03) 4px);
+    }
+
+    /* Screen Scanlines */
+    .scanline {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .hud-wrapper {
+      max-width: 440px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 14px;
+      position: relative;
+    }
+
+    /* Status Bar */
+    .hud-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(13, 22, 34, 0.85);
+      border: 1px solid var(--hud-border);
+      border-radius: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--cyan);
+      box-shadow: 0 0 15px var(--hud-glow);
+    }
+    .hud-signal { display: flex; align-items: center; gap: 6px; }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: blink 1.2s infinite ease-in-out;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
+
+    /* Login Screen */
+    .login-container {
+      margin-top: 40px;
+      background: rgba(13, 22, 34, 0.92);
+      border: 1px solid var(--cyan);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.2), inset 0 0 15px rgba(0, 229, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px 20px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      position: relative;
+    }
+    .hud-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 10px var(--cyan);
+      margin-bottom: 6px;
+    }
+    .hud-subtitle {
+      font-size: 13px;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .input-box {
+      width: 100%;
+      padding: 14px 16px;
+      background: #080f18;
+      border: 1px solid #1e3a58;
+      color: #fff;
+      border-radius: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s;
+      margin-bottom: 12px;
+    }
+    .input-box:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+    }
+    .btn-action {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-action:active { transform: scale(0.98); }
+    .quick-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    .tag-btn {
+      background: #111d2e;
+      border: 1px solid #234567;
+      color: #94a3b8;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: 'Share Tech Mono', monospace;
+      cursor: pointer;
+    }
+    .tag-btn:hover { border-color: var(--cyan); color: #fff; }
+
+    /* HUD Dashboard */
+    .hud-dashboard { display: none; flex-direction: column; gap: 14px; margin-top: 14px; }
+    
+    .user-badge {
+      background: rgba(13, 22, 34, 0.9);
+      border-left: 4px solid var(--cyan);
+      padding: 10px 14px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    /* Waveform & Radar Card */
+    .hud-card {
+      background: rgba(13, 22, 34, 0.85);
+      border: 1px solid var(--hud-border);
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    .card-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    /* Radar Canvas & Waveform */
+    .radar-box {
+      width: 100%;
+      height: 120px;
+      background: #060b12;
+      border: 1px solid #162a3f;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    canvas#waveCanvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* FULLSCREEN SPIDER-MAN HUD ALERT OVERLAY */
+    .hud-alert-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 0, 5, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      padding: 20px 16px;
+      overflow-y: auto;
+      border: 3px solid var(--red-alert);
+      box-shadow: inset 0 0 50px var(--red-glow), 0 0 30px var(--red-alert);
+      animation: alertPulse 1.2s infinite alternate;
+    }
+    @keyframes alertPulse {
+      from { border-color: rgba(255, 30, 56, 0.5); box-shadow: inset 0 0 30px rgba(255, 30, 56, 0.3); }
+      to { border-color: rgba(255, 30, 56, 1); box-shadow: inset 0 0 70px rgba(255, 30, 56, 0.8), 0 0 40px var(--red-alert); }
+    }
+
+    .alert-header {
+      border: 2px solid var(--red-alert);
+      background: rgba(255, 30, 56, 0.15);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 14px;
+      box-shadow: 0 0 20px rgba(255, 30, 56, 0.4);
+    }
+    .alert-tag {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      color: #ff8595;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+    .alert-main-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px var(--red-alert);
+    }
+    .alert-subtag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--amber);
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    .alert-details {
+      background: rgba(18, 5, 10, 0.85);
+      border: 1px solid rgba(255, 30, 56, 0.4);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Mini Live Map Frame */
+    .map-preview {
+      width: 100%;
+      height: 140px;
+      border: 1px solid var(--red-alert);
+      border-radius: 8px;
+      background: #11050a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .grid-bg {
+      position: absolute;
+      width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 30, 56, 0.2), transparent 70%),
+        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255, 30, 56, 0.15) 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255, 30, 56, 0.15) 20px);
+    }
+    .target-crosshair {
+      position: relative;
+      z-index: 2;
+      width: 48px; height: 48px;
+      border: 2px dashed var(--red-alert);
+      border-radius: 50%;
+      animation: spin 6s linear infinite;
+      display: flex; align-items: center; justify-content: center;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .btn-hud-map {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #e11d48, #9f1239);
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid #ff4d6d;
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
+      margin-bottom: 10px;
+    }
+    .btn-dismiss {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 1px solid #475569;
+      color: #94a3b8;
+      border-radius: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* History Feed */
+    .history-card {
+      background: rgba(13, 22, 34, 0.85);
+      border: 1px solid #1e3a58;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scanline"></div>
+
+  <div class="hud-wrapper">
+    <!-- Top HUD Status -->
+    <div class="hud-topbar">
+      <div class="hud-signal">
+        <div class="pulse-dot"></div>
+        <span id="sysStatus">RG360://SYS.ONLINE</span>
+      </div>
+      <div id="hudClock">00:00:00</div>
+    </div>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="loginView" class="login-container">
+      <div class="hud-title">RAILGUARD 360</div>
+      <div class="hud-subtitle">Emergency Mobile Receiver</div>
+
+      <p style="font-size:13px;color:var(--tx-mut);margin-bottom:16px;">Enter your registered Phone Number or Gmail to link this device for priority SOS alerts:</p>
+      
+      <input id="loginInput" class="input-box" type="text" placeholder="e.g. 9952233610 or terrorx2024@gmail.com" value="9952233610">
+      
+      <button id="btnLogin" class="btn-action">INITIALIZE TERMINAL</button>
+
+      <div class="quick-tags">
+        <span class="tag-btn" onclick="setLogin('9952233610')">👮 Guard (9952233610)</span>
+        <span class="tag-btn" onclick="setLogin('8807899742')">🏢 Control (8807899742)</span>
+        <span class="tag-btn" onclick="setLogin('8667362203')">🚓 Police (8667362203)</span>
+        <span class="tag-btn" onclick="setLogin('8072343604')">🚑 Ambulance (8072343604)</span>
+        <span class="tag-btn" onclick="setLogin('terrorx2024@gmail.com')">✉️ terrorx2024@gmail.com</span>
+      </div>
+    </div>
+
+    <!-- 2. CONNECTED HUD DASHBOARD -->
+    <div id="dashView" class="hud-dashboard">
+      <div class="user-badge">
+        <div>
+          <div style="font-size:11px;color:var(--tx-mut);font-family:'Share Tech Mono';">MONITORED TARGET</div>
+          <b id="linkedUser" style="color:var(--cyan);font-size:15px;">+91 9952233610</b>
+        </div>
+        <button onclick="logout()" style="background:#1e293b;border:1px solid #334155;color:#94a3b8;padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;">DISCONNECT</button>
+      </div>
+
+      <!-- Live Audio Waveform & Sensor Box -->
+      <div class="hud-card">
+        <div class="card-label">
+          <span>LIVE TRACK SENSOR TELEMETRY</span>
+          <span style="color:var(--green)">160 KMPH MAX</span>
+        </div>
+        <div class="radar-box">
+          <canvas id="waveCanvas"></canvas>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;font-family:'Share Tech Mono';color:var(--cyan);">
+          <span>TRAIN: #12680 (S4 COACH)</span>
+          <span id="scanStatus">SCANNING TRACK FREQ...</span>
+        </div>
+      </div>
+
+      <!-- Live Alerts Feed -->
+      <div class="hud-card">
+        <div class="card-label">
+          <span>EMERGENCY DISPATCH LOG</span>
+          <span id="alertCount" style="color:var(--amber)">0 ALERTS</span>
+        </div>
+        <div id="feedList">
+          <div style="color:var(--tx-mut);font-size:13px;text-align:center;padding:16px;">
+            Awaiting live train event signals...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. FULLSCREEN SPIDER-MAN HUD POPUP ALERT -->
+  <div id="hudAlertPopup" class="hud-alert-overlay">
+    <div class="alert-header">
+      <div class="alert-tag">ALERT!</div>
+      <div class="alert-main-title" id="popTitle">FALL IN PROGRESS</div>
+      <div class="alert-subtag" id="popEvent">➔ HIGH SPEED INCIDENT DETECTED</div>
+    </div>
+
+    <div class="map-preview">
+      <div class="grid-bg"></div>
+      <div class="target-crosshair">
+        <div style="width:8px;height:8px;background:var(--red-alert);border-radius:50%;box-shadow:0 0 10px var(--red-alert);"></div>
+      </div>
+      <div style="position:relative;z-index:2;margin-top:8px;font-family:'Share Tech Mono';font-size:12px;color:#ff8595;" id="popGpsText">
+        Waiting for alert coordinates
+      </div>
+    </div>
+
+    <div class="alert-details">
+      <div style="font-size:11px;color:#ff8595;font-family:'Share Tech Mono';margin-bottom:6px;">EMERGENCY DISPATCH PAYLOAD:</div>
+      <div id="popMessage" style="color:#fff;font-size:13px;">...</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--amber);" id="popTarget">
+        TARGET: TRAIN GUARD (+919952233610)
+      </div>
+    </div>
+
+    <a id="popMapBtn" href="#" target="_blank" class="btn-hud-map">📍 OPEN LIVE GPS COORDINATES</a>
+    <button onclick="closeAlert()" class="btn-dismiss">ACKNOWLEDGE & MINIMIZE</button>
+  </div>
+
+  <!-- Siren Audio -->
+  <audio id="sirenSound" preload="auto">
+    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+  </audio>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    let currentUser = localStorage.getItem("rg360_user") || "";
+    let seenAlerts = new Set();
+
+    // Clock
+    setInterval(() => {
+      const d = new Date();
+      $("hudClock").textContent = d.toTimeString().split(" ")[0];
+    }, 1000);
+
+    function setLogin(val) {
+      $("loginInput").value = val;
+    }
+
+    $("btnLogin").onclick = () => {
+      const val = $("loginInput").value.trim();
+      if (!val) return alert("Please enter a phone number or email");
+      localStorage.setItem("rg360_user", val);
+      currentUser = val;
+      checkLoginState();
+      if ("Notification" in window) Notification.requestPermission();
+    };
+
+    function logout() {
+      localStorage.removeItem("rg360_user");
+      currentUser = "";
+      checkLoginState();
+    }
+
+    function checkLoginState() {
+      if (currentUser) {
+        $("loginView").style.display = "none";
+        $("dashView").style.display = "flex";
+        $("linkedUser").textContent = currentUser;
+        startWaveAnimation();
+      } else {
+        $("loginView").style.display = "block";
+        $("dashView").style.display = "none";
+      }
+    }
+
+    // Audio Waveform Animation
+    let waveAnimId;
+    function startWaveAnimation() {
+      const canvas = $("waveCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      let step = 0;
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#00e5ff';
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#00e5ff';
+
+        ctx.beginPath();
+        const mid = canvas.height / 2;
+        for (let x = 0; x < canvas.width; x += 3) {
+          const freq = Math.sin((x * 0.05) + step) * Math.sin(step * 0.5);
+          const y = mid + freq * 25 * (Math.sin(x * 0.01 + step * 0.3));
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        step += 0.08;
+        waveAnimId = requestAnimationFrame(draw);
+      }
+      if (waveAnimId) cancelAnimationFrame(waveAnimId);
+      draw();
+    }
+
+    // Alert Polling
+    async function pollLive() {
+      if (!currentUser) return;
+      try {
+        const res = await fetch("/api/alerts/live");
+        if (!res.ok) return;
+        const data = await res.json();
+        handleAlerts(data.alerts || []);
+      } catch (e) {
+        $("sysStatus").textContent = "RG360://SYS.RECONNECTING";
+      }
+    }
+
+    function isMatchUser(alertItem, user) {
+      const cleanUser = user.replace(/\D/g, "");
+      const cleanTo = (alertItem.to || "").replace(/\D/g, "");
+      if (user.toLowerCase().includes("@")) {
+        return user.toLowerCase() === "terrorx2024@gmail.com";
+      }
+      if (cleanUser && cleanTo && (cleanUser.endsWith(cleanTo) || cleanTo.endsWith(cleanUser))) {
+        return true;
+      }
+      return user === "ALL" || alertItem.role === user;
+    }
+
+    function handleAlerts(alerts) {
+      $("sysStatus").textContent = "RG360://SYS.LIVE";
+      $("alertCount").textContent = `${alerts.length} ALERTS`;
+      if (!alerts || alerts.length === 0) return;
+
+      const matched = alerts.filter(a => isMatchUser(a, currentUser));
+
+      // Check if newest alert is fresh
+      const latest = matched[0];
+      if (latest && !seenAlerts.has(latest.id)) {
+        seenAlerts.add(latest.id);
+        showSpiderHudPopup(latest);
+      }
+
+      // Render Feed
+      const feed = $("feedList");
+      feed.innerHTML = "";
+      (matched.length > 0 ? matched : alerts).forEach(item => {
+        const div = document.createElement("div");
+        div.className = "history-card";
+        div.innerHTML = `
+          <div style="display:flex;justify-content:space-between;color:var(--red-alert);font-weight:bold;margin-bottom:4px;">
+            <span>🚨 ${item.event || "PASSENGER FALL"}</span>
+            <span style="color:var(--tx-mut);font-size:11px;">${item.time}</span>
+          </div>
+          <div style="color:#fff;font-size:12px;margin-bottom:6px;">${item.message}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:11px;color:var(--cyan);">TO: ${item.role.toUpperCase()} (${item.to})</span>
+            ${item.map ? `<a href="${item.map}" target="_blank" style="color:var(--cyan);font-size:11px;text-decoration:underline;">📍 GPS MAP</a>` : ""}
+          </div>
+        `;
+        feed.appendChild(div);
+      });
+    }
+
+    function showSpiderHudPopup(alertItem) {
+      $("popTitle").textContent = `${alertItem.event || "INCIDENT"} IN PROGRESS`;
+      $("popEvent").textContent = `➔ TRAIN #12680 SPEED ${alertItem.speed || 110} KM/H • COACH S4`;
+      $("popMessage").textContent = alertItem.message;
+      $("popTarget").textContent = `TARGET: ${alertItem.role.toUpperCase()} (${alertItem.to})`;
+      $("popGpsText").textContent = Number.isFinite(alertItem.lat) && Number.isFinite(alertItem.lon)
+        ? `LOC: ${alertItem.lat.toFixed(6)}, ${alertItem.lon.toFixed(6)}${Number.isFinite(alertItem.accuracy) ? ` • GPS ±${Math.round(alertItem.accuracy)} m` : ""}`
+        : "Coordinates unavailable";
+      if (alertItem.map) {
+        $("popMapBtn").href = alertItem.map;
+        $("popMapBtn").style.display = "block";
+      } else {
+        $("popMapBtn").style.display = "none";
+      }
+
+      $("hudAlertPopup").style.display = "block";
+
+      try { $("sirenSound").play(); } catch(e){}
+
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("🚨 CRIME / FALL IN PROGRESS!", {
+          body: alertItem.message,
+          icon: "https://cdn-icons-png.flaticon.com/512/564/564619.png"
+        });
+      }
+
+      if ("vibrate" in navigator) {
+        navigator.vibrate([400, 150, 400, 150, 600]);
+      }
+    }
+
+    function closeAlert() {
+      $("hudAlertPopup").style.display = "none";
+    }
+
+    checkLoginState();
+    setInterval(pollLive, 1500);
+    pollLive();
+  </script>
+</body>
+</html>
