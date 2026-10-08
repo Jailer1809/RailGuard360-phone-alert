@@ -4,6 +4,7 @@
 <meta name="theme-color" content="#0b1118">
 <meta name="description" content="RailGuard 360 phone-based camera and GPS fall-alert prototype.">
 <link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <title>RailGuard 360 - Phone Fall Alert</title>
 <style>
 :root{--bg:#0f1720;--card:#18232f;--tx:#e8eef4;--mut:#8aa0b2;--ok:#2ecc71;--warn:#f39c12;--bad:#e74c3c;--acc:#3aa0ff}
@@ -13,8 +14,10 @@ h1{font-size:20px;margin:0}header small{color:var(--mut)}
 main{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px;padding:14px}
 @media(max-width:900px){main{grid-template-columns:1fr}}
 .card{background:var(--card);border-radius:12px;padding:12px}
-.stage{position:relative;background:#000;border-radius:10px;overflow:hidden;aspect-ratio:4/3}
+.stage{position:relative;background:#000;border-radius:10px;overflow:hidden;width:100%;height:min(36vh,320px);min-height:180px}
 video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+#map{height:300px;width:100%;background:#101a24;border-radius:8px}
+#trainSearch{width:min(100%,360px);background:#18232f;color:#e8eef4;border:1px solid #3aa0ff;padding:10px;border-radius:8px;font-size:14px}
 #banner{position:absolute;left:0;right:0;bottom:0;padding:12px;font-weight:700;text-align:center;display:none;z-index:3}
 .hud{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .stat{flex:1;min-width:120px;background:#101a24;border-radius:8px;padding:8px}
@@ -24,8 +27,9 @@ button.red{background:var(--bad)}button.gray{background:#3a4856}
 button:disabled{opacity:.55;cursor:not-allowed}
 #log{height:190px;overflow:auto;font:12px ui-monospace,Consolas,monospace;background:#0b1118;border-radius:8px;padding:8px}
 #log div{margin-bottom:3px}.e{color:var(--bad)}.w{color:var(--warn)}.o{color:var(--ok)}
-h3{margin:4px 0 8px;font-size:15px}svg{width:100%;background:#0b1118;border-radius:8px}
+h3{margin:4px 0 8px;font-size:15px}
 .pill{padding:3px 9px;border-radius:99px;font-size:12px;font-weight:700}
+@media(max-width:600px){.stage{height:min(30vh,250px);min-height:165px}#map{height:250px}}
 </style></head><body>
 <header><div><h1>RailGuard 360 &middot; Fall & Push Detection</h1><small>Installable phone web app &middot; camera + device GPS</small></div>
 <span id="armed" class="pill" style="background:#3a4856">GPS NOT STARTED</span></header>
@@ -33,6 +37,12 @@ h3{margin:4px 0 8px;font-size:15px}svg{width:100%;background:#0b1118;border-radi
 <section class="card">
   <div class="stage"><video id="v" playsinline muted></video><canvas id="c"></canvas><div id="banner"></div></div>
   <small style="display:block;margin-top:8px;color:var(--mut)">Detection: human body poses only (up to 4 visible people). Non-human objects are ignored.</small>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px">
+    <label for="trainSearch">Train</label>
+    <input id="trainSearch" list="trainOptions" placeholder="Search train number or name" autocomplete="off">
+    <datalist id="trainOptions"></datalist>
+    <small id="routeStatus" style="color:var(--mut)">Loading timetable route…</small>
+  </div>
   <div class="hud">
     <div class="stat"><b id="spd">--</b><span id="speedLabel">Phone GPS speed km/h</span></div>
     <div class="stat"><b id="tilt">-</b><span>Body tilt (deg)</span></div>
@@ -56,7 +66,11 @@ h3{margin:4px 0 8px;font-size:15px}svg{width:100%;background:#0b1118;border-radi
   <p style="color:#ffb703;font-size:12px;margin:10px 2px 0">Prototype only: camera detection and phone GPS are not railway-certified, may miss incidents, and require the app to remain open. Configure and test emergency contacts before use.</p>
 </section>
 <aside style="display:flex;flex-direction:column;gap:14px">
-  <div class="card"><h3 id="mapTitle">Demo route</h3><svg id="map" viewBox="0 0 300 200"></svg></div>
+  <div class="card">
+    <h3 id="mapTitle">Train route map</h3>
+    <div id="map" role="img" aria-label="Map showing train route and current simulated train location"></div>
+    <small id="mapNote" style="display:block;margin-top:7px;color:var(--mut)">OpenStreetMap base map. Route stops use the supplied 2015 timetable; connecting line is approximate, not exact rail-track geometry.</small>
+  </div>
   <div class="card">
     <h3>Alert recipients</h3>
     <div id="nums" style="font-size:13px;color:var(--mut)">loading...</div>
@@ -85,5 +99,6 @@ h3{margin:4px 0 8px;font-size:15px}svg{width:100%;background:#0b1118;border-radi
     </div>
   </div>
 </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script type="module" src="app.js"></script>
 </body></html>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "railguard-v2";
+const CACHE_NAME = "railguard-v3";
 const ASSETS = [
   "/",
   "/receiver",

@@ -52,8 +52,16 @@ class Engine:
         ctx = dict(time=datetime.datetime.now(), lat=float(loc["lat"]), lon=float(loc["lon"]),
                    accuracy=float(loc["accuracy"]) if loc.get("accuracy") is not None else None,
                    speed=speed, km=km, person_count=person_count,
+                   route_distance_km=loc.get("route_distance_km"),
                    prev=loc.get("segment", "").split(" -> ")[0], next=loc.get("segment", "").split(" -> ")[-1])
-        res = alerts.send_all(alerts.build(event, ctx, self.cfg, stn, stage))
+        if isinstance(loc.get("nearest_station"), dict):
+            stn = {**loc["nearest_station"], "police_phone": "", "ambulance_phone": ""}
+            km = float(loc.get("nearest_station", {}).get("distance_km", km))
+            ctx["km"] = km
+        alert_cfg = dict(self.cfg)
+        if isinstance(loc.get("train"), dict):
+            alert_cfg["train"] = {**self.cfg["train"], **loc["train"]}
+        res = alerts.send_all(alerts.build(event, ctx, alert_cfg, stn, stage))
         return {"sent": True, "reason": f"{stage}: alerts to {', '.join(x[0] for x in res)}", "results": res, "ctx": ctx}
 
     def handle(self, event, now):

@@ -1,5 +1,5 @@
 {
-  "train": {"number": "12680", "name": "Coimbatore - Chennai (demo)", "coach": "S4"},
+  "train": {"number": "12680", "name": "CHENNAI EXPRESS", "coach": "S4"},
   "min_speed_kmph": 20,
   "detect": {"min_probability": 0.75, "votes_needed": 3, "of_last": 5, "cooldown_seconds": 20},
   "web": {"time_scale": 30, "cruise_speed_kmph": 160, "camera_index": 0},

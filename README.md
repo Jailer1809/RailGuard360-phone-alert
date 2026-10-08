@@ -6,7 +6,10 @@ This combines the two supplied projects into one application.
 - Browser UI: MediaPipe webcam push/fall detection.
 - Python `Engine`: shared speed gate, GPS/station lookup, alert cooldown, and ML model.
 - Shared `config.json` and `alerts.py`.
+- Train number/name and ordered station stops from the supplied 2015 `isl_wise_train_detail_03082015_v1.csv`; mapped stops are shown over OpenStreetMap tiles.
 - Original ML/OpenCV camera prototype is still available with `app.py`.
+
+The timetable file is historical (2015) and has station order and distances but no coordinates or rail-track geometry. The app uses OpenStreetMap station search results and draws an approximate straight corridor between stops; this is not an exact track or live train position. Demo-mode train position is simulated along that corridor. In phone mode the blue marker is the phone's GPS position, not train GPS. OpenStreetMap tiles and station lookups require internet access.
 
 ## Run the browser version
 ```bash

@@ -2,17 +2,16 @@ import { FallPushAnalyzer } from "./detector.js";
 import { PoseLandmarker, FilesetResolver, DrawingUtils } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
 
 const $ = id => document.getElementById(id);
-const STATIONS = [["Salem Junction",11.6643,78.1460],["Erode Junction",11.3410,77.7172],["Karur Junction",10.9601,78.0766],["Tiruchirappalli Junction",10.8050,78.6856]];
 const hav=(a,b,c,d)=>{const R=6371,r=x=>x*Math.PI/180,p=r(c-a),l=r(d-b),k=Math.sin(p/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(l/2)**2;return 2*R*Math.asin(Math.sqrt(k));};
 let CFG={speed_threshold_kmph:20,time_scale:30,cruise_speed_kmph:60,cooldown_seconds:10};
+let ACTIVE_TRAIN=null, ROUTE_STOPS=[], trainSearchResults=[];
 
 class Train {
   constructor() {
-    this.cum = [0];
-    for (let i = 1; i < STATIONS.length; i++) {
-      this.cum.push(this.cum[i-1] + hav(STATIONS[i-1][1], STATIONS[i-1][2], STATIONS[i][1], STATIONS[i][2]));
-    }
-    this.total = this.cum.at(-1);
+    this.stations = [];
+    this.cum = [];
+    this.startDistance = 0;
+    this.total = 0;
     this.pos = 0;
     this.speed = 0;
     this.maxSpeed = 160;
@@ -25,6 +24,32 @@ class Train {
     this.stationDwellTime = 5; // Stop for 5 seconds at each station
     this.stationStatusText = "Depot (Ready to Start)";
     this.lastPassedStationIndex = 0;
+  }
+
+  configure(stops) {
+    if (!Array.isArray(stops) || stops.length < 2) throw new Error("Selected train route has fewer than two mapped stops.");
+    const values = stops.map(stop => Number(stop.distance_km));
+    const useScheduleDistances = values.every(Number.isFinite) && values.every((value, i) => i === 0 || value >= values[i - 1]) && values.at(-1) > values[0];
+    this.stations = stops;
+    this.startDistance = useScheduleDistances ? values[0] : 0;
+    if (useScheduleDistances) {
+      this.cum = values.map(value => value - values[0]);
+    } else {
+      this.cum = [0];
+      for (let i = 1; i < stops.length; i++) {
+        this.cum.push(this.cum[i - 1] + hav(stops[i - 1].lat, stops[i - 1].lon, stops[i].lat, stops[i].lon));
+      }
+    }
+    this.total = this.cum.at(-1);
+    this.pos = 0;
+    this.speed = 0;
+    this.target = 0;
+    this.isStarted = false;
+    this.emergency = false;
+    this.stopped = false;
+    this.currentStationIndex = 0;
+    this.dwellTimer = 0;
+    this.stationStatusText = "Depot (Ready to Start)";
   }
 
   start() {
@@ -51,16 +76,16 @@ class Train {
         return "STOPPED";
       }
       this.stationStatusText = `Braking smoothly (${this.speed.toFixed(0)} km/h)...`;
-      // Position still advances smoothly as train gradually coasts to a halt
       this.pos += (this.speed * dt * CFG.time_scale) / 3600;
       return null;
     }
 
-    // Handle station dwelling (stopping for some seconds)
+    if (this.stations.length < 2) return null;
+
     if (this.dwellTimer > 0) {
       this.dwellTimer -= dt;
       this.speed = Math.max(0, this.speed - 25 * dt);
-      const stnName = STATIONS[this.currentStationIndex][0].replace(" Junction", "");
+      const stnName = this.stations[this.currentStationIndex].name;
       this.stationStatusText = `Stopped at ${stnName} (${Math.ceil(this.dwellTimer)}s left)`;
       if (this.dwellTimer <= 0) {
         this.dwellTimer = 0;
@@ -76,7 +101,6 @@ class Train {
       this.target = 0;
     }
 
-    // Gradual acceleration (4 km/h/s) and deceleration (8 km/h/s)
     const accelRate = 4.5;
     const decelRate = 8.0;
     if (this.speed < this.target) {
@@ -85,57 +109,57 @@ class Train {
       this.speed = Math.max(this.target, this.speed - decelRate * dt);
     }
 
-    // Advance train position
     const prevPos = this.pos;
     this.pos += (this.speed * dt * CFG.time_scale) / 3600;
 
-    // Check if train has reached or passed an upcoming station
-    for (let i = 1; i < STATIONS.length; i++) {
+    for (let i = 1; i < this.stations.length; i++) {
       const stnDist = this.cum[i];
       if (prevPos < stnDist && this.pos >= stnDist) {
         this.pos = stnDist;
         this.currentStationIndex = i;
         this.dwellTimer = this.stationDwellTime;
         this.target = 0;
-        const stnName = STATIONS[i][0];
+        const stnName = this.stations[i].name;
         log(`Train arrived and stopped at ${stnName} for ${this.stationDwellTime}s`, "o");
         break;
       }
     }
 
     if (this.pos >= this.total) {
-      this.pos = 0; // Loop back or cycle route
+      this.pos = 0;
       this.lastPassedStationIndex = 0;
+      this.currentStationIndex = 0;
     }
 
     return null;
   }
 
   loc() {
+    if (this.stations.length < 2) return null;
     const d = this.pos;
-    for (let i = 0; i < STATIONS.length - 1; i++) {
+    for (let i = 0; i < this.stations.length - 1; i++) {
       if (d <= this.cum[i+1]) {
         const f = (d - this.cum[i]) / (this.cum[i+1] - this.cum[i]);
-        const a = STATIONS[i], b = STATIONS[i+1];
+        const a = this.stations[i], b = this.stations[i+1];
         return {
-          lat: a[1] + (b[1] - a[1]) * f,
-          lon: a[2] + (b[2] - a[2]) * f,
-          km: d,
-          segment: `${a[0]} -> ${b[0]}`
+          lat: a.lat + (b.lat - a.lat) * f,
+          lon: a.lon + (b.lon - a.lon) * f,
+          km: d + this.startDistance,
+          segment: `${a.name} -> ${b.name}`
         };
       }
     }
-    const s = STATIONS.at(-1);
-    return { lat: s[1], lon: s[2], km: d, segment: s[0] };
+    const s = this.stations.at(-1);
+    return { lat: s.lat, lon: s.lon, km: d + this.startDistance, segment: s.name };
   }
 
   nearest(l) {
-    const out = [];
-    const b = Math.max(0, this.cum.findLastIndex(c => c <= l.km));
-    const a = Math.min(b + 1, STATIONS.length - 1);
-    for (const [t, i] of [["behind", b], ["ahead", a]]) {
-      out.push({ tag: t, name: STATIONS[i][0], dist_km: hav(l.lat, l.lon, STATIONS[i][1], STATIONS[i][2]) });
-    }
+    if (!this.stations.length) return [];
+    const out = this.stations.map((station, i) => ({
+      tag: this.cum[i] <= this.pos ? "behind" : "ahead",
+      name: station.name,
+      dist_km: Math.abs(this.cum[i] - this.pos)
+    }));
     return out.sort((x, y) => x.dist_km - y.dist_km);
   }
 
@@ -160,6 +184,8 @@ class Train {
 }
 const train=new Train();let detectors=[],pose,lastEvent=null,running=false,cameraStream=null;
 let phoneLocation=null,phoneSpeed=null,gpsWatchId=null;
+let mapView=null,routeLine=null,trainMarker=null,phoneMarker=null,alertMarker=null;
+let stationMarkers=[];
 
 function log(msg,cls=""){const d=document.createElement("div");d.className=cls;d.textContent=new Date().toLocaleTimeString()+"  "+msg;$("log").prepend(d);}
 function banner(msg,color){const b=$("banner");b.textContent=msg;b.style.background=color;b.style.display="block";clearTimeout(banner.t);banner.t=setTimeout(()=>b.style.display="none",8000);}
@@ -169,10 +195,14 @@ async function sendAlert(event, speed, loc, stage) {
     const r = await fetch("api/alert", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event, speed, loc, stage, persons: event.persons || 1 })
+      body: JSON.stringify({ event, speed, loc, stage, persons: event.persons || 1, train_number: ACTIVE_TRAIN?.number })
     });
     const j = await r.json();
     log(`${stage} alert request: ${j.message}`, j.ok ? "o" : "w");
+    if (j.ok) {
+      alertMarker = { lat: loc.lat, lon: loc.lon, label: `${stage}: ${event.type || "FALL/PUSH"} — ${ACTIVE_TRAIN?.number || ""} ${ACTIVE_TRAIN?.name || ""}` };
+      drawMap();
+    }
     
     // Trigger Real-time Popup Alert
     showRealtimeAlertModal(event, speed, loc, stage, j.results || []);
@@ -228,6 +258,8 @@ function fire(event){
   const phoneMode=$("modeSelect").value==="phone";
   const spd=phoneMode?phoneSpeed:train.speed;
   const loc=phoneMode?phoneLocation:train.loc();
+  if(!phoneMode&&!loc){const m="Select a timetable train with mapped stops before testing demo alerts.";
+    log(m,"w");banner(m,"#b9770e");return;}
   if(!loc){const m="Incident detected, but phone GPS has no location fix. Start GPS; no alert sent.";
     log(m,"w");banner(m,"#b9770e");return;}
   if(spd===null||!Number.isFinite(spd)){const m="Incident detected, but phone GPS speed is unavailable. No alert sent.";
@@ -268,20 +300,128 @@ function startPhoneGps(){
 function updateModeControls(){
   const phoneMode=$("modeSelect").value==="phone";
   $("bStartTrain").hidden=phoneMode;
-  $("bUp").disabled=phoneMode;$("bDn").disabled=phoneMode;$("bRel").disabled=phoneMode;
-  $("mapTitle").textContent=phoneMode?"Demo rail route (not live phone map)":"Demo route";
+  $("bUp").disabled=phoneMode||ROUTE_STOPS.length<2;$("bDn").disabled=phoneMode||ROUTE_STOPS.length<2;
+  $("bRel").disabled=phoneMode||ROUTE_STOPS.length<2;$("bStartTrain").disabled=ROUTE_STOPS.length<2;
+  $("mapTitle").textContent=ACTIVE_TRAIN?`${ACTIVE_TRAIN.number} · ${ACTIVE_TRAIN.name}`:"Train route map";
+  $("mapNote").textContent=phoneMode
+    ?"Blue marker is this phone's GPS, not live train GPS. Yellow line uses supplied 2015 timetable stops; it is an approximate corridor, not exact track geometry."
+    :"Green marker is the simulated train position. Yellow line uses supplied 2015 timetable stops; it is an approximate corridor, not exact track geometry.";
   $("speedLabel").textContent=phoneMode?"Phone GPS speed km/h":"Simulated train speed km/h";
   $("modeHelp").innerHTML=phoneMode
     ?`Live phone mode uses this phone's GPS coordinates and reported GPS speed. Start GPS and camera, and keep the camera aimed at the area to monitor. Alerts require GPS speed above <b id="lim">${CFG.speed_threshold_kmph}</b> km/h. The app cannot stop a train.`
-    :`Demo mode uses simulated train speed and route coordinates. Use this mode for testing only. Alerts activate above <b id="lim">${CFG.speed_threshold_kmph}</b> km/h.`;
+    :`Demo mode follows scheduled stops and route distances from the timetable. Map position is simulated between mapped stations, not live train GPS. Alerts activate above <b id="lim">${CFG.speed_threshold_kmph}</b> km/h.`;
+}
+
+async function searchTrains(query){
+  const response=await fetch(`/api/trains?q=${encodeURIComponent(query)}`);
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.message||"Train search failed");
+  trainSearchResults=data.trains;
+  $("trainOptions").replaceChildren(...trainSearchResults.map(item=>{
+    const option=document.createElement("option");
+    option.value=`${item.number} | ${item.name}`;
+    option.label=`${item.source} to ${item.destination}`;
+    return option;
+  }));
+}
+
+async function loadTrainRoute(number){
+  $("routeStatus").textContent=`Loading train ${number} route and map locations…`;
+  try{
+    const response=await fetch(`/api/trains/${encodeURIComponent(number)}/route`);
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.message||"Train route could not be loaded");
+    ACTIVE_TRAIN=data.train;
+    ROUTE_STOPS=data.stops;
+    train.configure(ROUTE_STOPS);
+    train.maxSpeed=CFG.cruise_speed_kmph||160;
+    if(alertMarker?.layer)alertMarker.layer.remove();
+    alertMarker=null;
+    $("trainSearch").value=`${ACTIVE_TRAIN.number} | ${ACTIVE_TRAIN.name}`;
+    $("routeStatus").textContent=`${ACTIVE_TRAIN.source} → ${ACTIVE_TRAIN.destination} · ${ROUTE_STOPS.length} mapped stops`;
+    $("mapTitle").textContent=`${ACTIVE_TRAIN.number} · ${ACTIVE_TRAIN.name}`;
+    configureMapRoute();
+    updateModeControls();
+    drawMap();
+    log(`Loaded timetable route for ${ACTIVE_TRAIN.number} ${ACTIVE_TRAIN.name}`,"o");
+  }catch(error){
+    $("routeStatus").textContent=error.message;
+    log(`Train route error: ${error.message}`,"e");
+  }
+}
+
+function setupTrainPicker(){
+  const picker=$("trainSearch");
+  let searchTimer;
+  picker.addEventListener("input",()=>{
+    clearTimeout(searchTimer);
+    const query=picker.value.trim();
+    if(!query)return;
+    searchTimer=setTimeout(()=>searchTrains(query).catch(error=>{
+      $("routeStatus").textContent=error.message;
+    }),250);
+  });
+  picker.addEventListener("change",()=>{
+    const number=picker.value.trim().split("|",1)[0].trim();
+    if(/^\d{1,6}$/.test(number)&&number!==ACTIVE_TRAIN?.number)loadTrainRoute(number);
+  });
+  picker.addEventListener("focus",()=>searchTrains("").catch(error=>{
+    $("routeStatus").textContent=error.message;
+  }));
 }
 
 // ---- map ----
-function drawMap(){const la=STATIONS.map(s=>s[1]),lo=STATIONS.map(s=>s[2]);const x0=Math.min(...lo),x1=Math.max(...lo),y0=Math.min(...la),y1=Math.max(...la);
-  const X=v=>20+(v-x0)/(x1-x0)*260,Y=v=>180-(v-y0)/(y1-y0)*160;const l=train.loc();
-  $("map").innerHTML=`<polyline fill="none" stroke="#3a4856" stroke-width="3" points="${STATIONS.map(s=>X(s[2])+","+Y(s[1])).join(" ")}"/>`+
-   STATIONS.map(s=>`<circle cx="${X(s[2])}" cy="${Y(s[1])}" r="4" fill="#8aa0b2"/><text x="${X(s[2])+6}" y="${Y(s[1])-6}" font-size="9" fill="#8aa0b2">${s[0].replace(" Junction","")}</text>`).join("")+
-   `<circle cx="${X(l.lon)}" cy="${Y(l.lat)}" r="7" fill="${train.emergency?"#e74c3c":"#2ecc71"}"/>`;}
+function initMap(){
+  if(!window.L){$("routeStatus").textContent="Map library unavailable; check internet connection.";return;}
+  mapView=L.map("map").setView([11.7,78.5],7);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(mapView);
+}
+
+function configureMapRoute(fit=true){
+  if(!mapView||ROUTE_STOPS.length<2)return;
+  if(routeLine)routeLine.remove();
+  stationMarkers.forEach(marker=>marker.remove());
+  stationMarkers=[];
+  routeLine=L.polyline(ROUTE_STOPS.map(stop=>[stop.lat,stop.lon]),{color:"#f2b84b",weight:5,opacity:.85}).addTo(mapView);
+  ROUTE_STOPS.forEach(stop=>{
+    const marker=L.circleMarker([stop.lat,stop.lon],{radius:4,color:"#d5e0e8",fillColor:"#273847",fillOpacity:1,weight:2}).addTo(mapView);
+    marker.bindTooltip(`${stop.code} · ${stop.name}`);
+    stationMarkers.push(marker);
+  });
+  if(fit)mapView.fitBounds(routeLine.getBounds(),{padding:[20,20]});
+  $("mapNote").textContent="OpenStreetMap base map. Stops use the supplied 2015 timetable; connecting line is an approximate corridor, not exact rail-track geometry.";
+}
+
+function drawMap(){
+  if(!mapView)return;
+  const phoneMode=$("modeSelect").value==="phone";
+  const loc=phoneMode?phoneLocation:train.loc();
+  if(loc){
+    if(phoneMode){
+      if(trainMarker){trainMarker.remove();trainMarker=null;}
+      if(!phoneMarker){
+        phoneMarker=L.circleMarker([loc.lat,loc.lon],{radius:8,color:"#fff",weight:2,fillColor:"#3aa0ff",fillOpacity:1}).addTo(mapView);
+        phoneMarker.bindTooltip("Phone GPS position — not train GPS");
+      }else phoneMarker.setLatLng([loc.lat,loc.lon]);
+    }else{
+      if(phoneMarker){phoneMarker.remove();phoneMarker=null;}
+      if(!trainMarker){
+        trainMarker=L.circleMarker([loc.lat,loc.lon],{radius:9,color:"#fff",weight:2,fillColor:"#2ecc71",fillOpacity:1}).addTo(mapView);
+        trainMarker.bindTooltip(`${ACTIVE_TRAIN?.number || "Train"} · ${ACTIVE_TRAIN?.name || ""} · simulated`);
+      }else trainMarker.setLatLng([loc.lat,loc.lon]);
+      trainMarker.setStyle({fillColor:train.emergency?"#e74c3c":"#2ecc71"});
+    }
+  }
+  if(alertMarker){
+    if(!alertMarker.layer){
+      alertMarker.layer=L.circleMarker([alertMarker.lat,alertMarker.lon],{radius:10,color:"#fff",weight:2,fillColor:"#e74c3c",fillOpacity:1}).addTo(mapView);
+      alertMarker.layer.bindTooltip(alertMarker.label);
+    }else alertMarker.layer.setLatLng([alertMarker.lat,alertMarker.lon]);
+  }
+}
 
 // ---- camera + pose ----
 async function startCamera(requestedDeviceId = null) {
@@ -396,7 +536,7 @@ function loop(now){
   const armed=!!l&&speed!==null&&speed>CFG.speed_threshold_kmph;
   $("spd").textContent = speed===null||!Number.isFinite(speed)?"--":speed.toFixed(0);
   if(!phoneLocation&&phoneMode)$("gps").textContent="Waiting for GPS";
-  if(!phoneMode)$("gps").textContent = l.lat.toFixed(6) + ", " + l.lon.toFixed(6)+" (demo)";
+  if(!phoneMode)$("gps").textContent = l ? `${l.lat.toFixed(6)}, ${l.lon.toFixed(6)} (simulated)` : "Route not loaded";
   if (!phoneMode) $("stnStatus").textContent = train.stationStatusText;
   const a = $("armed");
   a.textContent = !l&&phoneMode?"GPS REQUIRED":speed===null&&phoneMode?"GPS SPEED UNAVAILABLE":!phoneMode&&train.emergency?"DEMO BRAKING":armed?"ARMED (>"+CFG.speed_threshold_kmph+" km/h)":"ALERTS OFF (<= "+CFG.speed_threshold_kmph+" km/h)";
@@ -407,12 +547,19 @@ function loop(now){
 
 // ---- boot ----
 (async()=>{
+  initMap();
+  setupTrainPicker();
   try{
     const j=await (await fetch("api/config")).json();
     CFG={...CFG,...j};
     $("lim").textContent=CFG.speed_threshold_kmph;
     $("nums").textContent=j.numbers.join("  |  ");
     $("sms").innerHTML=j.sms_provider?`<span class="o">SMS provider: ${j.sms_provider}</span>`:`<span class="w">No SMS provider set on server - alerts run in dry-run (see server log)</span>`;
+    if(j.train){
+      ACTIVE_TRAIN=j.train;
+      $("trainSearch").value=`${j.train.number} | ${j.train.name}`;
+      await loadTrainRoute(j.train.number);
+    }
   }catch(e){$("nums").textContent="(server not reachable)";}
   train.maxSpeed = CFG.cruise_speed_kmph || 160;
 
@@ -432,7 +579,7 @@ function loop(now){
         train.start();
         bStart.textContent = "Pause Train";
         bStart.style.background = "#f39c12";
-        log("Train departure initiated -> Accelerating gradually to 160 km/h", "o");
+        log(`Train ${ACTIVE_TRAIN?.number || ""} departure initiated -> accelerating gradually`, "o");
       } else {
         train.pause();
         bStart.textContent = "Start Train";

@@ -19,18 +19,25 @@ def _norm(n):
 
 def build(event, ctx, cfg, stn, stage="ALERT"):
     label = LABEL.get(event, event.upper())
+    train = cfg["train"]
+    train_label = f"Train {train['number']} ({train.get('name', 'name unavailable')})"
+    coach = f", coach {train['coach']}" if train.get("coach") else ""
     people = int(ctx.get("person_count", 1))
     people_text = f"{people} detected person" + ("" if people == 1 else "s")
     t = ctx["time"].strftime("%d-%b-%Y %H:%M:%S")
     maps = f"https://maps.google.com/?q={ctx['lat']:.6f},{ctx['lon']:.6f}"
     accuracy = f" GPS accuracy: +/-{ctx['accuracy']:.0f} m." if ctx.get("accuracy") is not None else ""
-    near = f"Nearest station: {stn['name']} ({ctx['km']:.1f} km). Between {ctx['prev']} and {ctx['next']}."
+    near = f"Nearest timetable station: {stn['name']} ({ctx['km']:.1f} km away)."
+    if ctx.get("prev") and ctx.get("next"):
+        near += f" Approximate route segment: {ctx['prev']} to {ctx['next']}."
+    if ctx.get("route_distance_km") is not None:
+        near += f" Estimated distance from the route corridor: {ctx['route_distance_km']:.1f} km."
     if stage == "HALTED":
-        base = (f"RAILGUARD 360 UPDATE: Train {cfg['train']['number']} has HALTED after a {label} event involving {people_text}. "
+        base = (f"RAILGUARD 360 UPDATE: {train_label} has HALTED after a {label} event involving {people_text}. "
                 f"Location {ctx['lat']:.6f},{ctx['lon']:.6f} at {t}.{accuracy} Map: {maps}.")
     else:
-        base = (f"RAILGUARD 360 ALERT: {label} event involving {people_text} from running train {cfg['train']['number']}, "
-                f"coach {cfg['train']['coach']}, at {t}. Train speed {ctx['speed']:.0f} km/h. "
+        base = (f"RAILGUARD 360 ALERT: {label} event involving {people_text} from running {train_label}"
+                f"{coach} at {t}. Train speed {ctx['speed']:.0f} km/h. "
                 f"Location {ctx['lat']:.6f},{ctx['lon']:.6f}.{accuracy} Map: {maps}.")
     c = cfg["contacts"]
     if stage == "HALTED":
